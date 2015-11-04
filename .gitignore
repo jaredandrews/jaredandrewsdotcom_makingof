@@ -1,0 +1,7 @@
+# Python Related
+*.pyc
+output/
+
+# Emacs Related
+\#*\#
+.\#*
