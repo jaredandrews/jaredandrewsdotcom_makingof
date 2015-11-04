@@ -1,5 +1,5 @@
-Title: Making This Site , Part 1: Setup 
-Date: 2012-12-01 10:02 
+Title: Making This Site , Part 0: Setup 
+Date: 2015-11-01 10:02 
 
 Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site.
 
@@ -66,8 +66,8 @@ To make this article I used the following command:
 
 Once the file was created I opened it and wrote this article. An article file needs to provide metadata for Pelican. Here is what the metadata for this article looks like:
 
-    Title: Making This Site , Part 1: Setup 
-    Date: 2012-12-01 10:02
+    Title: Making This Site , Part 0: Setup 
+    Date: 2015-11-01 10:02
 
 For this article I used a number of Markdown features within the text. ```*``` creates a bullet point. ```#``` indicates that the line is a header.
 
