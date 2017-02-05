@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+  <head>
+    <meta charset="utf-8">
+      <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+
+      <meta name="description" content="{% block description %}Personal site of Jared Andrews{% endblock %}">
+      <meta name="author" content="{{ AUTHOR }}">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="{{ SITEURL }}/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="{{ SITEURL }}/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="{{ SITEURL }}/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="{{ SITEURL }}">Jared Andrews</a></h1>
+        <nav><a href="#">about</a> / <a href="#">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+      {% block content %}{% endblock %}
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
