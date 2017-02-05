@@ -1,7 +1,14 @@
-# Python Related
+# Python
 *.pyc
 output/
 
-# Emacs Related
+# Pelican
+pelican.pid
+srv.pid
+
+# OS X
+.DS_Store
+
+# Emacs
 \#*\#
 .\#*
