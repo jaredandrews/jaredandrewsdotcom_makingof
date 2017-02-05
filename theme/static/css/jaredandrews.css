@@ -1,4 +1,8 @@
 /* default && mobile */
+.header {
+    margin-bottom: 2.5rem;
+}
+
 .header nav {
     display: block;
     text-align: center;
@@ -7,6 +11,20 @@
 .header .site-title {
     margin: auto;
     text-align: center;
+}
+
+.post-meta {
+    display: inline-block;
+}
+
+li {
+    list-style-position: outside;
+    margin-left: 1em;
+}
+
+img {
+    max-width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Larger than mobile */
