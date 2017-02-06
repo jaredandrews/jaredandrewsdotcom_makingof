@@ -13,6 +13,14 @@
     text-align: center;
 }
 
+.article-title {
+    margin-bottom: 0rem;
+}
+
+.article-metadata {
+    margin-bottom: 2rem;
+}
+
 .post-meta {
     display: inline-block;
 }

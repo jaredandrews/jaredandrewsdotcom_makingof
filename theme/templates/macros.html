@@ -1,0 +1,16 @@
+{% macro get_meta_data_html(article, default_category) %}
+  {{ article.date.strftime('%b %d, %Y') }}
+{% if article.category != default_category %}
+    / <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+  {% endif %}
+  {% if article.tags %}
+    /
+    {% for tag in article.tags %}
+      {% if not loop.last %}
+        <a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>,
+      {% else %}
+        <a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}

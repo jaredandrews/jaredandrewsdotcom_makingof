@@ -1,0 +1,32 @@
+{% from 'macros.html' import get_meta_data_html %}
+{% extends "base.html" %}
+{% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
+{% block content %}
+<h2 class="article-title">{{ article.title }}</h1>
+<footer class="article-metadata">
+  {{ get_meta_data_html(article, DEFAULT_CATEGORY) }}
+</footer>
+<div class="article-body">{{ article.content }}</div>
+{% if article.category != DEFAULT_CATEGORY %}
+<div class="row">
+  {% if article.prev_article_in_category %}
+  <span style="float:left">
+    &#8592;
+    <a href="{{ SITEURL }}/{{ article.prev_article_in_category.url}}">
+      {{ article.prev_article_in_category.title }}
+    </a>
+  </span>
+  {% endif %}
+
+  {% if article.next_article_in_category %}
+  <span style="float:right">
+    <a href="{{ SITEURL }}/{{ article.next_article_in_category.url}}">
+      {{ article.next_article_in_category.title }}
+    </a>
+    &#8594;
+  </span>
+  {% endif %}
+
+</div>
+{% endif %}
+{% endblock %}

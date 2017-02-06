@@ -12,6 +12,8 @@ TIMEZONE = 'America/New_York'
 
 DEFAULT_LANG = u'en'
 
+DEFAULT_CATEGORY = 'Unorganized'
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
@@ -26,3 +28,6 @@ DEFAULT_PAGINATION = False
 
 THEME = 'theme'
 STATIC_PATHS = ['images']
+
+PLUGIN_PATHS = ['plugins']
+PLUGINS = ['neighbors']
