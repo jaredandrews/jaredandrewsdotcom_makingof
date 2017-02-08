@@ -1,7 +1,6 @@
 Title: Making This Site, Part 2: Index Template
 Date: 2017-02-04 19:00
 Tags: programming, web-dev, pelican
-Category: making-this-site
 
 Welcome to the second installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
 

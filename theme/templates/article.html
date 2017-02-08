@@ -4,7 +4,7 @@
 {% block content %}
 <h2 class="article-title">{{ article.title }}</h1>
 <footer class="article-metadata">
-  {{ get_meta_data_html(article, DEFAULT_CATEGORY) }}
+  {{ get_meta_data_html(article) }}
 </footer>
 <div class="article-body">{{ article.content }}</div>
 {% if article.category != DEFAULT_CATEGORY %}

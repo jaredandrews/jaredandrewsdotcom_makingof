@@ -1,7 +1,6 @@
 Title: Making This Site, Part 1: Base Template
 Date: 2015-11-03 19:00
 Tags: programming, web-dev, pelican, skeleton, jinja2
-Category: making-this-site
 
 Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
 

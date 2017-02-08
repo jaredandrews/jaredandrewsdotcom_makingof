@@ -1,7 +1,6 @@
 Title: Making This Site, Part 3: Article Template
 Date: 2017-02-04 21:36
 Tags: programming, web-dev, pelican, jinja2
-Category: making-this-site
 
 Welcome to the third installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
 

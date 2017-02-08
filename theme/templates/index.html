@@ -1,13 +1,5 @@
-{% from 'macros.html' import get_meta_data_html %}
+{% from 'macros.html' import get_article_list  %}
 {% extends "base.html" %}
 {% block content %}
-<ul>
-  {% for article in articles_page.object_list %}
-    <li>
-      <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-      &nbsp
-      <span class="post-meta">({{ get_meta_data_html(article, DEFAULT_CATEGORY) }})</span>
-    </li>
-  {% endfor %}
-</ul>
+  {{ get_article_list(articles_page.object_list, DEFAULT_CATEGORY) }}
 {% endblock content %}

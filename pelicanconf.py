@@ -30,4 +30,5 @@ THEME = 'theme'
 STATIC_PATHS = ['images']
 
 PLUGIN_PATHS = ['plugins']
-PLUGINS = ['neighbors']
+PLUGINS = ['neighbors', 'category_meta']
+
