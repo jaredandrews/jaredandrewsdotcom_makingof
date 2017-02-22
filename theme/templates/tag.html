@@ -1,0 +1,10 @@
+{% from 'macros.html' import get_article_list  %}
+{% extends "base.html" %}
+{% block title %}{{ tag }} — {{ SITENAME }}{% endblock %}
+{% block content %}
+<h2>Posts tagged with: {{ tag }}</h2>
+{{ get_article_list(articles, DEFAULT_CATEGORY) }}
+<p>
+    <a href="{{ SITEURL }}/tags.html">Click here for a list of all tags.</a>
+</p>
+{% endblock %}
