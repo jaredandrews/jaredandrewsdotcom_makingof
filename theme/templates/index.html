@@ -1,5 +1,5 @@
 {% from 'macros.html' import get_article_list  %}
 {% extends "base.html" %}
 {% block content %}
-  {{ get_article_list(articles_page.object_list, DEFAULT_CATEGORY) }}
+{{ get_article_list(articles_page.object_list, DEFAULT_CATEGORY, "External Links") }}
 {% endblock content %}

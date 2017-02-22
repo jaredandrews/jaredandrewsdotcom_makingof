@@ -1,0 +1,11 @@
+{% from 'macros.html' import get_article_list  %}
+{% extends "base.html" %}
+{% block content %}
+  <h2>Archive</h2>
+  <p>
+    For activity outside the scope of this website
+    <a href ="{{ SITEURL }}/category/external-links.html">check out
+    the "External Links" page</a>.
+  </p>
+  {{ get_article_list(dates, DEFAULT_CATEGORY, "External Links") }}
+{% endblock content %}

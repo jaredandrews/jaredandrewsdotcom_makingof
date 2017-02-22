@@ -7,22 +7,28 @@
     /
     {% for tag in article.tags %}
       {% if not loop.last %}
-        <a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>,
+	<a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>,
       {% else %}
-        <a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>
+	<a href="{{ SITEURL }}/{{ tag.url }}" rel="tag">{{ tag }}</a>
       {% endif %}
     {% endfor %}
   {% endif %}
 {% endmacro %}
 
-{% macro get_article_list(articles, default_category) %}
-<ul>
-  {% for article in articles %}
-    <li>
-      <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
-      &nbsp
-      <span class="post-meta">({{ get_meta_data_html(article, default_category) }})</span>
-    </li>
-  {% endfor %}
-</ul>
+{% macro get_article_list(articles, default_category, hidden_category) %}
+  <ul>
+    {% for article in articles %}
+      {% if article.category.name != hidden_category %}
+	<li>
+	  {% if article.category.name == 'External Links' %}
+	    <a href="{{ article['link'] }}" target="_blank">{{ article.title }}</a>
+	  {% else %}
+	    <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+	  {% endif %}
+	  &nbsp
+	  <span class="post-meta">({{ get_meta_data_html(article, default_category) }})</span>
+	</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
 {% endmacro %}
