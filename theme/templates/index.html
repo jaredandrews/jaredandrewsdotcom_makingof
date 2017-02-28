@@ -1,5 +1,33 @@
 {% from 'macros.html' import get_article_list  %}
 {% extends "base.html" %}
 {% block content %}
-{{ get_article_list(articles_page.object_list, DEFAULT_CATEGORY, "External Links") }}
+  <div class="row">
+      <img class="portrait" src="{{ SITEURL }}/images/jared.png" alt="Portrait of the Author"/>
+
+      <p>
+	Greetings! My name is Jared Andrews, I am a location
+	independent, freelance software
+	developer. This website is a place where I put technology and
+	writing projects that don't belong anywhere else. If you are
+	interested in learning more about me, check out the
+	<a href="{{ SITEURL }}/about.html">About page</a>.
+      </p>
+
+      <p>
+	<strong>Current Location: </strong>{{ CURRENT_LOCATION }}
+
+	<br/>
+	<em>
+	  If you are nearby and want to get together and
+	  talk technology, motorcycles, DIY music or really anything, get
+	  in touch!
+	</em>
+      </p>
+      
+	
+  </div>
+  
+  <h2>Most Recent Posts</h2>
+    
+  {{ get_article_list(articles_page.object_list, DEFAULT_CATEGORY, "External Links") }}
 {% endblock content %}

@@ -1,4 +1,23 @@
 /* default && mobile */
+
+@import url(http://fonts.googleapis.com/css?family=Poppins);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: 'Roboto';
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins';
+}
+
+.portrait {
+    box-shadow: none;
+    display: inline-block;
+    margin: 1.5rem;
+    float: left;
+}
+
 .header {
     margin-bottom: 2.5rem;
 }
@@ -21,13 +40,18 @@
     margin-bottom: 2rem;
 }
 
+.container {
+    margin-bottom: 2rem;
+}
+
 .post-meta {
     display: inline-block;
+    font-size: 1.2rem;
 }
 
 li {
     list-style-position: outside;
-    margin-left: 1em;
+    margin-left: 2em;
 }
 
 img {
@@ -35,8 +59,15 @@ img {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+p {
+    margin-left: 1em;
+}
+
 .highlight {
-    padding: 0 1.5em 0 1.5em;
+    padding: .25em 1.5em .25em 1.5em;
+    margin-bottom: 2em;
+    margin-left: 1em;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* Larger than mobile */
