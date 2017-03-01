@@ -1,0 +1,12 @@
+{% from 'macros.html' import get_page_meta_data_html %}
+{% extends "base.html" %}
+{% block title %}{{ page.title }} — {{ SITENAME }}{% endblock %}
+{% block content %}
+  <h2 class="title">{{ page.title }}</h2>
+
+  <footer class="metadata">
+    {{ get_page_meta_data_html(page) }}
+  </footer>
+
+  <div>{{ page.content }}</div>
+{% endblock %}

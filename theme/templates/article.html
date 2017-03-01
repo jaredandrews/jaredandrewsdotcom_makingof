@@ -2,11 +2,11 @@
 {% extends "base.html" %}
 {% block title %}{{ article.title }} — {{ SITENAME }}{% endblock %}
 {% block content %}
-<h2 class="article-title">{{ article.title }}</h1>
-<footer class="article-metadata">
+<h2 class="title">{{ article.title }}</h2>
+<footer class="metadata">
   {{ get_meta_data_html(article) }}
 </footer>
-<div class="article-body">{{ article.content }}</div>
+<div>{{ article.content }}</div>
 {% if article.category != DEFAULT_CATEGORY %}
 <div class="row">
   {% if article.prev_article_in_category %}

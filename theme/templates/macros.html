@@ -15,6 +15,15 @@
   {% endif %}
 {% endmacro %}
 
+{% macro get_page_meta_data_html(page) %}
+  Last Modified: 
+  {% if page.modified %}
+    {{ page.modified.strftime("%b %d, %Y") }}
+  {% elif page.date %}
+    {{ page.modified.strftime("%b %d, %Y") }}
+  {% endif %}
+{% endmacro %}
+  
 {% macro get_article_list(articles, default_category, hidden_category) %}
   <ul>
     {% for article in articles %}
