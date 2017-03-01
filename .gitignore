@@ -12,3 +12,6 @@ srv.pid
 # Emacs
 \#*\#
 .\#*
+
+# Misc
+deploy.sh

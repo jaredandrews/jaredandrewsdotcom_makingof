@@ -13,7 +13,6 @@ wide metadata. The ```pelican-quickstart``` tool used in the previous
 entry to create the skeleton for this site generates a conf file with
 sensible defaults:
 
-    #!/usr/bin/env python
     # -*- coding: utf-8 -*- #
     from __future__ import unicode_literals
     

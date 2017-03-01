@@ -16,11 +16,13 @@
 {% endmacro %}
 
 {% macro get_page_meta_data_html(page) %}
-  Last Modified: 
-  {% if page.modified %}
-    {{ page.modified.strftime("%b %d, %Y") }}
-  {% elif page.date %}
-    {{ page.modified.strftime("%b %d, %Y") }}
+  {% if page.modified or page.date %}
+    Last Modified: 
+    {% if page.modified %}
+      {{ page.modified.strftime("%b %d, %Y") }}
+    {% elif page.date %}
+      {{ page.modified.strftime("%b %d, %Y") }}
+    {% endif %}
   {% endif %}
 {% endmacro %}
   
