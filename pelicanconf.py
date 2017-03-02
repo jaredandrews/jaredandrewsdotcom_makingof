@@ -26,8 +26,13 @@ DEFAULT_PAGINATION = False
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
 
+READERS = {"html": None}
+
 THEME = 'theme'
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['images', 'making-this-site-rendered', 'extra']
+EXTRA_PATH_METADATA = {
+    'extra/robots.txt': {'path': 'robots.txt'},
+}
 
 PLUGIN_PATHS = ['plugins']
 PLUGINS = ['neighbors', 'category_meta']

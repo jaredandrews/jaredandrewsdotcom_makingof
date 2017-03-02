@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Jared Andrews</title><link href="http://jaredandrews.com/making-this-site-rendered/00/" rel="alternate"></link><link href="http://jaredandrews.com/making-this-site-rendered/00/feeds/all.atom.xml" rel="self"></link><id>http://jaredandrews.com/making-this-site-rendered/00/</id><updated>2015-11-01T10:02:00-05:00</updated><entry><title>Making This Site , Part 0: Setup</title><link href="http://jaredandrews.com/making-this-site-rendered/00/making-this-site-part-0-setup.html" rel="alternate"></link><published>2015-11-01T10:02:00-05:00</published><updated>2015-11-01T10:02:00-05:00</updated><author><name>Jared Andrews</name></author><id>tag:jaredandrews.com,2015-11-01:/making-this-site-rendered/00/making-this-site-part-0-setup.html</id><summary type="html">&lt;p&gt;Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. &lt;/p&gt;
+&lt;p&gt;To view this post the way it looked by the end of making all the changes described in this article &lt;a href=""&gt;click here&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Web Design Goals …&lt;/h3&gt;</summary><content type="html">&lt;p&gt;Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. &lt;/p&gt;
+&lt;p&gt;To view this post the way it looked by the end of making all the changes described in this article &lt;a href=""&gt;click here&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Web Design Goals&lt;/h3&gt;
+&lt;p&gt;The purpose of this website is to store information and the output of various DIY projects I work on. As such, the requirements are simple:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Blog presentation&lt;/li&gt;
+&lt;li&gt;Lightweight and easy to view on computers and phones&lt;/li&gt;
+&lt;li&gt;Easy to maintain and add content to&lt;/li&gt;
+&lt;li&gt;Cheap to host&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With this in mind I set out to find a suitable static site generator (SSG) to build my site on. After reading about the pros and cons of many different static site generator I decided on &lt;a href="http://docs.getpelican.com/en/3.6.3/index.html"&gt;Pelican&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My decision to use Pelican was primarily based on my pre-existing knowledge of Python and the fact that Pelican had almost all the features I thought I would need and not much more.&lt;/p&gt;
+&lt;h3&gt;Setting Up Pelican&lt;/h3&gt;
+&lt;p&gt;Setting up Pelican is quite simple. I followed the &lt;a href="http://docs.getpelican.com/en/3.6.3/quickstart.html"&gt;quickstart guide&lt;/a&gt; to get get set up. The guide is quite thorough so I will not reiterate it.&lt;/p&gt;
+&lt;p&gt;Running &lt;code&gt;pelican-quickstart&lt;/code&gt; generates a skeleton site with a default theme. It gets you set up to write a blog right away. Indeed, by the end of this article I will have a site that could, theoretically, go online.&lt;/p&gt;
+&lt;p&gt;Here are the options I used to generate my initial site:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pelican-quickstart
+Welcome to pelican-quickstart v3.6.3.
+
+This script will &lt;span class="nb"&gt;help&lt;/span&gt; you create a new Pelican-based website.
+
+Please answer the following questions so this script can generate the files
+needed by Pelican.
+
+
+&amp;gt; Where &lt;span class="k"&gt;do&lt;/span&gt; you want to create your new web site? &lt;span class="o"&gt;[&lt;/span&gt;.&lt;span class="o"&gt;]&lt;/span&gt; .
+&amp;gt; What will be the title of this web site? Jared Andrews
+&amp;gt; Who will be the author of this web site? Jared Andrews
+&amp;gt; What will be the default language of this web site? &lt;span class="o"&gt;[&lt;/span&gt;en&lt;span class="o"&gt;]&lt;/span&gt;
+&amp;gt; Do you want to specify a URL prefix? e.g., http://example.com   &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; Y
+&amp;gt; What is your URL prefix? &lt;span class="o"&gt;(&lt;/span&gt;see above example&lt;span class="p"&gt;;&lt;/span&gt; no trailing slash&lt;span class="o"&gt;)&lt;/span&gt; http://jaredandrews.com
+&amp;gt; Do you want to &lt;span class="nb"&gt;enable&lt;/span&gt; article pagination? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; n
+&amp;gt; What is your &lt;span class="nb"&gt;time&lt;/span&gt; zone? &lt;span class="o"&gt;[&lt;/span&gt;Europe/Paris&lt;span class="o"&gt;]&lt;/span&gt; Boston
+Please enter a valid &lt;span class="nb"&gt;time&lt;/span&gt; zone:
+&lt;span class="o"&gt;(&lt;/span&gt;check &lt;span class="o"&gt;[&lt;/span&gt;http://en.wikipedia.org/wiki/List_of_tz_database_time_zones&lt;span class="o"&gt;])&lt;/span&gt;
+&amp;gt; What is your &lt;span class="nb"&gt;time&lt;/span&gt; zone? &lt;span class="o"&gt;[&lt;/span&gt;Europe/Paris&lt;span class="o"&gt;]&lt;/span&gt;        America/New_York
+&amp;gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; Y
+&amp;gt; Do you want an auto-reload &lt;span class="p"&gt;&amp;amp;&lt;/span&gt; simpleHTTP script to assist with theme and site development? &lt;span class="o"&gt;(&lt;/span&gt;Y/n&lt;span class="o"&gt;)&lt;/span&gt; Y
+&amp;gt; Do you want to upload your website using FTP? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+&amp;gt; Do you want to upload your website using SSH? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+&amp;gt; Do you want to upload your website using Dropbox? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+&amp;gt; Do you want to upload your website using S3? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+&amp;gt; Do you want to upload your website using Rackspace Cloud Files? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+&amp;gt; Do you want to upload your website using GitHub Pages? &lt;span class="o"&gt;(&lt;/span&gt;y/N&lt;span class="o"&gt;)&lt;/span&gt; N
+Done.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You can see the skeleton site by running &lt;code&gt;make html; make serve;&lt;/code&gt; in the same directory as the makefile generated by &lt;code&gt;pelican-quickstart&lt;/code&gt;. After, open your browser and go to &lt;code&gt;localhost:8000&lt;/code&gt;. Here you will see the freshly generated site.&lt;/p&gt;
+&lt;h3&gt;Making My First Article&lt;/h3&gt;
+&lt;p&gt;After seeing the skeleton site I decided to write the article you are reading right now. Pelican provides the option to write articles in Markdown and a number of other languages. I decided to use Markdown, which is the default. In the root directory for your site you will find a &lt;code&gt;content&lt;/code&gt; directory. This directory is where you store your articles.&lt;/p&gt;
+&lt;p&gt;To make this article I used the following command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ touch content/pelican_00_setup.md
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Once the file was created I opened it and wrote this article. An article file needs to provide metadata for Pelican. Here is what the metadata for this article looks like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Making&lt;/span&gt; &lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;Site&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Part&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Setup&lt;/span&gt; 
+&lt;span class="n"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;For this article I used a number of Markdown features within the
+text. &lt;code&gt;*&lt;/code&gt; creates a bullet point. &lt;code&gt;#&lt;/code&gt; indicates that the line
+is a header. I also prefaced lines of code with at least four spaces
+so they would be shown in a code block.&lt;/p&gt;
+&lt;h4&gt;Tags and Categories&lt;/h4&gt;
+&lt;p&gt;Each post can also have a single category and a list of associated
+tags. Underneath the title and date information in the Markdown for
+this post I have also included:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Tags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;programming&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;
+&lt;span class="n"&gt;Category&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;making&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Each post can have a single category. I imagine that typically I will
+only use categories when I want to group specific posts together, for
+example, I would want a visitor of this site to be able to to view all
+of the "Making This Site" posts in one place, thus I have created the
+&lt;code&gt;making-this-site&lt;/code&gt; category.&lt;/p&gt;
+&lt;p&gt;Tags are additional meta-data that can be used to find related
+posts. Typically I will provide a very general tag and then a few more
+specific ones. I try not to go wild with the tags, I know some sites
+do.&lt;/p&gt;
+&lt;p&gt;At this point, with very little effort, I have a working blog with one article on it. To view the site in this state checkout COMMIT HASH LINK on GitHub.&lt;/p&gt;</content><category term="programming"></category><category term="web-dev"></category><category term="pelican"></category></entry></feed>

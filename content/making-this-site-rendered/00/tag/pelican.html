@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>Jared Andrews - pelican</title>
+        <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/00/theme/css/main.css" />
+        <link href="http://jaredandrews.com/making-this-site-rendered/00/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Jared Andrews Atom Feed" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://jaredandrews.com/making-this-site-rendered/00/">Jared Andrews </a></h1>
+                <nav><ul>
+                    <li><a href="http://jaredandrews.com/making-this-site-rendered/00/category/making-this-site.html">making-this-site</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="http://jaredandrews.com/making-this-site-rendered/00/making-this-site-part-0-setup.html">Making This Site , Part 0: Setup</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2015-11-01T10:02:00-05:00">
+                Published: Sun 01 November 2015
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="http://jaredandrews.com/making-this-site-rendered/00/author/jared-andrews.html">Jared Andrews</a>
+        </address>
+<p>In <a href="http://jaredandrews.com/making-this-site-rendered/00/category/making-this-site.html">making-this-site</a>.</p>
+<p>tags: <a href="http://jaredandrews.com/making-this-site-rendered/00/tag/programming.html">programming</a> <a href="http://jaredandrews.com/making-this-site-rendered/00/tag/web-dev.html">web-dev</a> <a href="http://jaredandrews.com/making-this-site-rendered/00/tag/pelican.html">pelican</a> </p>
+</footer><!-- /.post-info --><p>Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. </p>
+<p>To view this post the way it looked by the end of making all the changes described in this article <a href="">click here</a></p>
+<h3>Web Design Goals</h3>
+<p>The purpose of this website is to store information and the output of various DIY projects I work on. As such, the requirements are simple:</p>
+<ul>
+<li>Blog presentation</li>
+<li>Lightweight and easy to view on computers and phones</li>
+<li>Easy to maintain and add content to</li>
+<li>Cheap to host</li>
+</ul>
+<p>With this in mind I set out to find a suitable static site generator (SSG) to build my site on. After reading about the pros and cons of many different static site generator I decided on <a href="http://docs.getpelican.com/en/3.6.3/index.html">Pelican</a>.</p>
+<p>My decision to use Pelican was primarily based on my pre-existing knowledge of Python and the fact that Pelican had almost all the features I thought I would need and not much more.</p>
+<h3>Setting Up Pelican</h3>
+<p>Setting up Pelican is quite simple. I followed the <a href="http://docs.getpelican.com/en/3.6.3/quickstart.html">quickstart guide</a> to get get set up. The guide is quite thorough so I will not reiterate it.</p>
+<p>Running <code>pelican-quickstart</code> generates a skeleton site with a default theme. It gets you set up to write a blog right away. Indeed, by the end of this article I will have a site that could, theoretically, go online.</p>
+<p>Here are the options I used to generate my initial site:</p>
+<div class="highlight"><pre><span></span>$ pelican-quickstart
+Welcome to pelican-quickstart v3.6.3.
+
+This script will <span class="nb">help</span> you create a new Pelican-based website.
+
+Please answer the following questions so this script can generate the files
+needed by Pelican.
+
+
+&gt; Where <span class="k">do</span> you want to create your new web site? <span class="o">[</span>.<span class="o">]</span> .
+&gt; What will be the title of this web site? Jared Andrews
+&gt; Who will be the author of this web site? Jared Andrews
+&gt; What will be the default language of this web site? <span class="o">[</span>en<span class="o">]</span>
+&gt; Do you want to specify a URL prefix? e.g., http://example.com   <span class="o">(</span>Y/n<span class="o">)</span> Y
+&gt; What is your URL prefix? <span class="o">(</span>see above example<span class="p">;</span> no trailing slash<span class="o">)</span> http://jaredandrews.com
+&gt; Do you want to <span class="nb">enable</span> article pagination? <span class="o">(</span>Y/n<span class="o">)</span> n
+&gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span> Boston
+Please enter a valid <span class="nb">time</span> zone:
+<span class="o">(</span>check <span class="o">[</span>http://en.wikipedia.org/wiki/List_of_tz_database_time_zones<span class="o">])</span>
+&gt; What is your <span class="nb">time</span> zone? <span class="o">[</span>Europe/Paris<span class="o">]</span>        America/New_York
+&gt; Do you want to generate a Fabfile/Makefile to automate generation and publishing? <span class="o">(</span>Y/n<span class="o">)</span> Y
+&gt; Do you want an auto-reload <span class="p">&amp;</span> simpleHTTP script to assist with theme and site development? <span class="o">(</span>Y/n<span class="o">)</span> Y
+&gt; Do you want to upload your website using FTP? <span class="o">(</span>y/N<span class="o">)</span> N
+&gt; Do you want to upload your website using SSH? <span class="o">(</span>y/N<span class="o">)</span> N
+&gt; Do you want to upload your website using Dropbox? <span class="o">(</span>y/N<span class="o">)</span> N
+&gt; Do you want to upload your website using S3? <span class="o">(</span>y/N<span class="o">)</span> N
+&gt; Do you want to upload your website using Rackspace Cloud Files? <span class="o">(</span>y/N<span class="o">)</span> N
+&gt; Do you want to upload your website using GitHub Pages? <span class="o">(</span>y/N<span class="o">)</span> N
+Done.
+</pre></div>
+
+
+<p>You can see the skeleton site by running <code>make html; make serve;</code> in the same directory as the makefile generated by <code>pelican-quickstart</code>. After, open your browser and go to <code>localhost:8000</code>. Here you will see the freshly generated site.</p>
+<h3>Making My First Article</h3>
+<p>After seeing the skeleton site I decided to write the article you are reading right now. Pelican provides the option to write articles in Markdown and a number of other languages. I decided to use Markdown, which is the default. In the root directory for your site you will find a <code>content</code> directory. This directory is where you store your articles.</p>
+<p>To make this article I used the following command:</p>
+<div class="highlight"><pre><span></span>$ touch content/pelican_00_setup.md
+</pre></div>
+
+
+<p>Once the file was created I opened it and wrote this article. An article file needs to provide metadata for Pelican. Here is what the metadata for this article looks like:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Making</span> <span class="n">This</span> <span class="n">Site</span> <span class="o">,</span> <span class="n">Part</span> <span class="mi">0</span><span class="o">:</span> <span class="n">Setup</span> 
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="o">:</span><span class="mi">02</span>
+</pre></div>
+
+
+<p>For this article I used a number of Markdown features within the
+text. <code>*</code> creates a bullet point. <code>#</code> indicates that the line
+is a header. I also prefaced lines of code with at least four spaces
+so they would be shown in a code block.</p>
+<h4>Tags and Categories</h4>
+<p>Each post can also have a single category and a list of associated
+tags. Underneath the title and date information in the Markdown for
+this post I have also included:</p>
+<div class="highlight"><pre><span></span><span class="n">Tags</span><span class="o">:</span> <span class="n">programming</span><span class="o">,</span> <span class="n">web</span><span class="o">-</span><span class="n">dev</span><span class="o">,</span> <span class="n">pelican</span>
+<span class="n">Category</span><span class="o">:</span> <span class="n">making</span><span class="o">-</span><span class="k">this</span><span class="o">-</span><span class="n">site</span>
+</pre></div>
+
+
+<p>Each post can have a single category. I imagine that typically I will
+only use categories when I want to group specific posts together, for
+example, I would want a visitor of this site to be able to to view all
+of the "Making This Site" posts in one place, thus I have created the
+<code>making-this-site</code> category.</p>
+<p>Tags are additional meta-data that can be used to find related
+posts. Typically I will provide a very general tag and then a few more
+specific ones. I try not to go wild with the tags, I know some sites
+do.</p>
+<p>At this point, with very little effort, I have a working blog with one article on it. To view the site in this state checkout COMMIT HASH LINK on GitHub.</p>                </article>
+            </aside><!-- /#featured -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="http://jaredandrews.com/making-this-site-rendered/00/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
