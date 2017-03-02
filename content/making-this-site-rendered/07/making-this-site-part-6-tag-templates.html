@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 6: Tag Templates — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/07">Jared Andrews</a></h1>
+        <nav><a href="#">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/07/archives.html">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="article-title">Making This Site, Part 6: Tag Templates</h1>
+<footer class="article-metadata">
+    Feb 22, 2017
+    / <a href="/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="/tag/programming.html" rel="tag">programming</a>,
+	<a href="/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="/tag/pelican.html" rel="tag">pelican</a>,
+	<a href="/tag/jinja2.html" rel="tag">jinja2</a>
+
+</footer>
+<div class="article-body"><p>There are only a couple templates we need for this to be a complete Pelican theme. Two of them are related to tags, <code>tag.html</code> and <code>tags.html</code>.</p>
+<p>The <code>tag.html</code> template displays articles related to a specifc tag and the <code>tags.html</code> template displays a list of all tags on the site. Let's add these two templates.</p>
+<h3>The Tag Template</h3>
+<p>For <code>tag.html</code> I just want to show the name of the tag and list related articles which is very similar to what we have done in <code>category.html</code> and <code>archives.html</code>.</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/tag.html
+</pre></div>
+
+
+<p>Then we basically copy <code>category.html</code> and make a few changes:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="kn">from</span> <span class="s1">&#39;macros.html&#39;</span> <span class="kn">import</span> <span class="nn">get_article_list</span>  <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">title</span> <span class="o">%</span><span class="p">}{{</span> <span class="n">tag</span> <span class="p">}}</span> <span class="err">—</span> <span class="p">{{</span> <span class="n">SITENAME</span> <span class="p">}}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">content</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">Posts</span> <span class="n">tagged</span> <span class="k">with</span><span class="p">:</span> <span class="p">{{</span> <span class="n">tag</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+    <span class="p">{{</span> <span class="n">get_article_list</span><span class="p">(</span><span class="n">articles</span><span class="p">,</span> <span class="n">DEFAULT_CATEGORY</span><span class="p">)</span> <span class="p">}}</span>
+    <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ SITEURL }}/tags.html&quot;</span><span class="o">&gt;</span><span class="n">Click</span> <span class="n">here</span> <span class="k">for</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">tags</span><span class="o">.&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+
+
+<p><code>tag.html</code> gets a variable called <code>tag</code> which contains the name of the selected <code>tag</code>. I put this in the title block of the page and in the <code>h2</code> of the page. Like <code>category.html</code>, <code>tag.html</code> provides <code>articles</code> which contains a list of relevant articles.</p>
+<p>With this new template clicking on tags in a posts metadata will take you to a fresh looking page instead of a blank page.</p>
+<h3>The Tags Template</h3>
+<p>For <code>tags.html</code> I just want to list all the tags on the site along with a number indicating how many articles have the given tag.</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/tags.html
+</pre></div>
+
+
+<p><code>tags.html</code> is undocumented in the <a href="http://docs.getpelican.com/en/stable/themes.html">Pelican 3.7.1 Docs</a> but the 'simple' theme shows <a href="https://github.com/getpelican/pelican/blob/master/pelican/themes/simple/templates/tags.html">an example</a>.</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}</span>Tags — <span class="cp">{{</span> <span class="nv">SITENAME</span> <span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h2&gt;</span>Tags<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">tag</span><span class="o">,</span> <span class="nv">articles</span> <span class="k">in</span> <span class="nv">tags</span><span class="o">|</span><span class="nf">sort</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">tag.url</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">tag</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;</span> (<span class="cp">{{</span> <span class="nv">articles</span><span class="o">|</span><span class="nf">count</span> <span class="cp">}}</span>)<span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+
+
+<h3>Wrapping Up</h3>
+<p>We have added <code>tag.html</code> and <code>tags.html</code> templates to the site. The only remaining template that I am interested in handling is <code>page.html</code> which will be addressed in the next post.</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.</p>
+<p>To see what the site looked after these changes were made <a href="">click here</a>.</p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/07/making-this-site-part-5-archive-template.html">
+      Making This Site, Part 5: Archive Template
+    </a>
+  </span>
+
+  <span style="float:right">
+    <a href="http://jaredandrews.com/making-this-site-rendered/07/making-this-site-part-7-design-improvements.html">
+      Making This Site, Part 7: Design Improvements
+    </a>
+    &#8594;
+  </span>
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    

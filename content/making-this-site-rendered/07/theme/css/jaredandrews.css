@@ -1,0 +1,96 @@
+/* default && mobile */
+
+@import url(http://fonts.googleapis.com/css?family=Poppins);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: 'Roboto';
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins';
+}
+
+.portrait {
+    box-shadow: none;
+    display: inline-block;
+    margin: 1.5rem;
+    float: left;
+}
+
+.header {
+    margin-bottom: 2.5rem;
+}
+
+.header nav {
+    display: block;
+    text-align: center;
+}
+
+.header .site-title {
+    margin: auto;
+    text-align: center;
+}
+
+.article-title {
+    margin-bottom: 0rem;
+}
+
+.article-metadata {
+    margin-bottom: 2rem;
+}
+
+.container {
+    margin-bottom: 2rem;
+}
+
+.post-meta {
+    display: inline-block;
+    font-size: 1.2rem;
+}
+
+li {
+    list-style-position: outside;
+    margin-left: 2em;
+}
+
+img {
+    max-width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+p {
+    margin-left: 1em;
+}
+
+.highlight {
+    padding: .25em 1.5em .25em 1.5em;
+    margin-bottom: 2em;
+    margin-left: 1em;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+    .header .site-title {
+	float: left;
+    }
+
+    .header nav {
+	display: inline;
+	float: right;
+    }
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

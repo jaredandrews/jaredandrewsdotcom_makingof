@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 2: Index Template — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/07/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/07">Jared Andrews</a></h1>
+        <nav><a href="#">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/07/archives.html">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="article-title">Making This Site, Part 2: Index Template</h1>
+<footer class="article-metadata">
+    Feb 04, 2017
+    / <a href="/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="/tag/programming.html" rel="tag">programming</a>,
+	<a href="/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="/tag/pelican.html" rel="tag">pelican</a>
+
+</footer>
+<div class="article-body"><p>Welcome to the second installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. </p>
+<p>To view this post the way it looked by the end of making all the changes described in this article <a href="">click here</a></p>
+<h3>Designing the Home Page</h3>
+<p>In keeping with the overall "minimalist" vibe I only want my
+home page to be a list of posts. Right now,
+with the default template provided by Pelican, there is a list but
+there is way too much information.</p>
+<p>I want something more like:</p>
+<div class="highlight"><pre><span></span>&gt; Name of Post (Feb 4, 2017 / making-this-site / programming, web-dev, pelican)
+</pre></div>
+
+
+<h3>Laying Out the index.html Template</h3>
+<p>First we need to add the template into our theme:</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/index.html
+</pre></div>
+
+
+<p>We will start by inheriting from <code>base.html</code>. This will include the
+<code>header</code> and <code>container</code> we created in the last post.</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<p>Next lets make an unordered list to hold our posts:</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+<span class="nt">&lt;ul&gt;</span>
+<span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles_page.object_list</span> <span class="cp">%}</span>
+  <span class="nt">&lt;li&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">article.url</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;</span>
+    <span class="err">&amp;</span>nbsp
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;post-meta&quot;</span><span class="nt">&gt;</span>(<span class="cp">{{</span> <span class="nv">article.date.strftime</span><span class="o">(</span><span class="s1">&#39;%b %d, %Y&#39;</span><span class="o">)</span> <span class="cp">}}</span>
+  <span class="cp">{%</span> <span class="k">if</span> <span class="nv">article.tags</span> <span class="cp">%}</span>
+    /
+    <span class="cp">{%</span> <span class="k">for</span> <span class="nv">tag</span> <span class="k">in</span> <span class="nv">article.tags</span> <span class="cp">%}</span>
+      <span class="cp">{%</span> <span class="k">if</span> <span class="k">not</span> <span class="nb">loop</span><span class="nv">.last</span> <span class="cp">%}</span>
+       <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">tag.url</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">rel=</span><span class="s">&quot;tag&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">tag</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;</span>,
+      <span class="cp">{%</span> <span class="k">else</span> <span class="cp">%}</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">tag.url</span> <span class="cp">}}</span><span class="s">&quot;</span> <span class="na">rel=</span><span class="s">&quot;tag&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">tag</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;</span>)
+      <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+    <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+  <span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+  <span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/li&gt;</span>
+
+<span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="nv">content</span> <span class="cp">%}</span>
+</pre></div>
+
+
+<p>The first thing to notice is the for loop in line 3 itereating over
+<code>articles_page.object_list</code> this variable provides us with a list of
+articles that we can then get information from.</p>
+<p>Once we have an article we add <code>&lt;li&gt;</code> for it to live and print
+out the relevant meta data.</p>
+<p>Notice how when adding both the category and tags lists we check first
+with an if statement for their existance. This is so we do not get
+something like "/ / )" if no categories or tags exist.</p>
+<h3>Some CSS Refinement</h3>
+<p>The freshly added template looks almost exactly how I want it. But
+there are two issues from my perspective:</p>
+<p>When you are in the mobile view the meta-data for each post looks
+awkward:</p>
+<p><img alt="Alphabet Soup of Metadata on Mobile" src="/images/crushed_up_metadata.png"></p>
+<p>There is no space between the title and the first article in the
+list:</p>
+<p><img alt="Tight Spacing Between Title and First Article" src="/images/tight_title.png"></p>
+<h4>Making Metadata on Mobile Look Good</h4>
+<p>If you look back up to the code that we added into the template you
+will notice that all that all the metadata for a post is contained in
+a span with the class of <code>post-meta</code>.</p>
+<p>Let's define <code>post-meta</code> in the "default &amp;&amp; mobile" section of
+<code>jaredandrews.css</code> like so:</p>
+<div class="highlight"><pre><span></span><span class="na">.post-meta</span> <span class="err">{</span>
+    <span class="nl">display:</span> <span class="nf">inline-block</span><span class="c">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>This change makes entire span jump to the next line when any part of
+it can't fit into the parent container:</p>
+<p><img alt="Post metadata with display as inline-block" src="/images/inline_block_metadata.png"></p>
+<p>This is better but I don't like how the metadata falls underneath the
+bullet point. Instead I would like it to align with the post title. To
+achieve this we an the following to the "default &amp;&amp; mobile" section of <code>jaredandrews.css</code></p>
+<div class="highlight"><pre><span></span><span class="nt">li</span> <span class="p">{</span>
+    <span class="k">list-style-position</span><span class="p">:</span> <span class="kc">outside</span><span class="p">;</span>
+    <span class="k">margin-left</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><img alt="Metadata aligned with the post title on mobile" src="/images/aligned_metadata_mobile.png"></p>
+<p>Now that's what I'm talking about!</p>
+<h4>Creating Space Between the Title and the List</h4>
+<p>Next I want to make a little bit of space between the header and the
+list. By default Skeleton assigns a bottom margin of <code>2.5rem</code> to most
+elements. I am going to give my <code>header</code> div the same margin by
+adding:</p>
+<div class="highlight"><pre><span></span><span class="na">.header</span> <span class="err">{</span>
+    <span class="nl">margin-bottom:</span> <span class="err">2</span><span class="nf">.5rem</span><span class="c">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<h3>A Quick Aside on Improving Image Display</h3>
+<p>While I intended to focus strictly on <code>index.html</code> in this post I
+noticed how bad the images were looking while proofreading and
+wanted to do something about it.</p>
+<p>First the images don't respond to the width of the screen at all
+meaning they bleed of the page. Second, the images have no border,
+which can cause confusion, especially when displaying screenshots of
+text from this site.</p>
+<p>To add a border and make the images scale I added the following css
+to the "default &amp;&amp; mobile" section of <code>jaredandrews.css</code>:</p>
+<div class="highlight"><pre><span></span><span class="nt">img</span> <span class="p">{</span>
+    <span class="k">max-width</span><span class="p">:</span> <span class="mi">100</span><span class="kt">%</span><span class="p">;</span>
+    <span class="k">box-shadow</span><span class="p">:</span> <span class="mi">0</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">4</span><span class="kt">px</span> <span class="mi">0</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="mi">0</span> <span class="mi">2</span><span class="kt">px</span> <span class="mi">8</span><span class="kt">px</span> <span class="mi">0</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This makes the images stay within the width of the screen and provides
+a nice border with a shadow.</p>
+<h3>Wrapping Up</h3>
+<p>We now have a home page for the site and it looks pretty much exactly
+how I want it to on both mobile and desktop.</p>
+<p>If you click a category you will notice that the same <code>index.html</code>
+template appears to get used to create category pages. Clicking on a
+tag will lead to an empty page. We will have to tackle that in the
+future!</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.</p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/07/making-this-site-part-1-base-template.html">
+      Making This Site, Part 1: Base Template
+    </a>
+  </span>
+
+  <span style="float:right">
+    <a href="http://jaredandrews.com/making-this-site-rendered/07/making-this-site-part-3-article-template.html">
+      Making This Site, Part 3: Article Template
+    </a>
+    &#8594;
+  </span>
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
