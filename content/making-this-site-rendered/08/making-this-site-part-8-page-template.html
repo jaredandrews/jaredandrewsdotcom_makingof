@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 8: Page Template — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/08/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/08/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/08/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/08">Jared Andrews</a></h1>
+        <nav><a href="http://jaredandrews.com/making-this-site-rendered/08/pages/about.html">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/08/archives.html">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="title">Making This Site, Part 8: Page Template</h2>
+<footer class="metadata">
+    Feb 28, 2017
+    / <a href="/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="/tag/programming.html" rel="tag">programming</a>,
+	<a href="/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="/tag/pelican.html" rel="tag">pelican</a>,
+	<a href="/tag/jinja2.html" rel="tag">jinja2</a>,
+	<a href="/tag/css.html" rel="tag">css</a>,
+	<a href="/tag/markdown.html" rel="tag">markdown</a>
+
+</footer>
+<div><p>There are two types of content in Pelican, <a href="http://docs.getpelican.com/en/stable/content.html#articles-and-pages">articles and pages</a>. So far we have only worked with articles. But now that we are nearing the end of creating this site I need to add an "About" page with a bio, contact information and maybe a few other things. In the future I may use pages to host content that will be updated over time but is better preseneted as a single package. For example I intend to add a travel map and log at some point. This would be more suited as a single page that get's updated frequently than a million very brief blog posts.</p>
+<h3>Setting Up</h3>
+<p>We need to create both a template for pages and a place for them to go in the <code>content</code> directory. Lets add the new template, a new content directory and a new page:</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/page.html
+$ mkdir content/pages/
+$ touch content/pages/about.md
+</pre></div>
+
+
+<h3>Creating the About Page Markdown</h3>
+<p>Lets start with <code>about.md</code>. This is the post that describes the content and metadata for my about page. Working with it is basically the same as an article.</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">About</span>
+<span class="n">Date</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span> <span class="mi">18</span><span class="o">:</span><span class="mi">15</span>
+<span class="n">Modified</span><span class="o">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">28</span> <span class="mi">18</span><span class="o">:</span><span class="mi">15</span>
+
+<span class="n">CONTENT</span> <span class="n">TODO</span>
+</pre></div>
+
+
+<p>Notice there is less metadata than an article. I added a <code>Modified</code> key which I will update whenever I change this page.</p>
+<h3>Creating the Page Template</h3>
+<p>Next lets edit <code>page.html</code>. This is the template that content in <code>content/pages/</code> willl be applied to. It is like a simpler article:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="kn">from</span> <span class="s1">&#39;macros.html&#39;</span> <span class="kn">import</span> <span class="nn">get_page_meta_data_html</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">title</span> <span class="o">%</span><span class="p">}{{</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span> <span class="err">—</span> <span class="p">{{</span> <span class="n">SITENAME</span> <span class="p">}}{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">block</span> <span class="n">content</span> <span class="o">%</span><span class="p">}</span>
+  <span class="o">&lt;</span><span class="n">h2</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;article-title&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">footer</span> <span class="n">class</span><span class="o">=</span><span class="s2">&quot;article-metadata&quot;</span><span class="o">&gt;</span>
+    <span class="p">{{</span> <span class="n">get_page_meta_data_html</span><span class="p">(</span><span class="n">page</span><span class="p">)</span> <span class="p">}}</span>
+  <span class="o">&lt;/</span><span class="n">footer</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span><span class="o">.</span><span class="n">content</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endblock</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Notice that the CSS classnames are still prepended with "article-". These names not don't make sense, because they are used with pages as well. I doubt I will ever confuse myself with this inconsistency but since I will be using the exact same styles for both type of content I think it's fair to remove the prefix, thus <code>.article-title</code> and <code>.article-metadata</code> are now <code>.title</code> and <code>.metadata</code> respectively.</p>
+<p>Every thing is pretty similar to <code>article.html</code> minus the navigation. I also changed how the metadta was displayed with a new method in <code>macros.html</code>:</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">get_page_meta_data_html</span><span class="o">(</span><span class="nv">page</span><span class="o">)</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">  Last Modified: </span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">page.modified</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">page.modified.strftime</span><span class="o">(</span><span class="s2">&quot;%b %d, %Y&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">elif</span> <span class="nv">page.date</span> <span class="cp">%}</span><span class="x"></span>
+<span class="x">    </span><span class="cp">{{</span> <span class="nv">page.modified.strftime</span><span class="o">(</span><span class="s2">&quot;%b %d, %Y&quot;</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x"></span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span><span class="x"></span>
+</pre></div>
+
+
+<p>This shows the "last modification" date for a page and that's it.</p>
+<h3>Updating the Nav Bar</h3>
+<p>A page in <code>content/pages</code> is generated with a slug that looks like <code>pages/page.html</code>. Thus my new about page will look like <code>pages/about.html</code>. I have a link to the About page both in the Nav Bar and on the front page.</p>
+<p>To update the Nav Bar I update <code>base.html</code>:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;nav&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/pages/about.html&quot;</span><span class="nt">&gt;</span>about<span class="nt">&lt;/a&gt;</span> / <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/archives.html&quot;</span><span class="nt">&gt;</span>archive<span class="nt">&lt;/a&gt;</span> / <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>rss<span class="nt">&lt;/a&gt;&lt;/nav&gt;</span>
+</pre></div>
+
+
+<p>In the last post I added a greetings box to <code>index.html</code>. I put a link to the about page in it and at the time thought the link would be <code>{{ SITEURL }}/about.html</code>. Turns out my assumption was wrong so I updated that <code>index.html</code> to reflect the new link.</p>
+<h3>Adding Content to the About Page</h3>
+<p>Next I added content to <code>about.md</code>:</p>
+<div class="highlight"><pre><span></span><span class="nl">Title</span><span class="p">:</span> <span class="n">About</span>
+<span class="nl">Date</span><span class="p">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mi">28</span> <span class="mi">18</span><span class="o">:</span><span class="mi">15</span>
+<span class="nl">Modified</span><span class="p">:</span> <span class="mi">2017</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mi">28</span> <span class="mi">18</span><span class="o">:</span><span class="mi">15</span>
+
+<span class="o">!</span><span class="p">[</span><span class="n">Portrait</span> <span class="n">of</span> <span class="n">Author</span><span class="p">](</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">jared_large</span><span class="p">.</span><span class="n">png</span><span class="p">){</span> <span class="k">class</span><span class="o">=</span><span class="err">&#39;</span><span class="n">portrait</span> <span class="n">large</span><span class="err">&#39;</span> <span class="p">}</span>
+
+<span class="o">**</span><span class="n">Email</span> <span class="nl">Me</span><span class="p">:</span><span class="o">**</span> <span class="n">jared</span> <span class="p">(</span><span class="n">at</span><span class="p">)</span> <span class="n">jaredandrews</span> <span class="p">(</span><span class="n">dot</span><span class="p">)</span> <span class="n">com</span>  
+<span class="o">**</span><span class="n">Online</span> <span class="nl">Profiles</span><span class="p">:</span><span class="o">**</span> <span class="p">[</span><span class="n">HN</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//news.ycombinator.com/user?id=jaredandrews), [reddit](https://www.reddit.com/user/jared_and_fizz/), [Instagram](https://www.instagram.com/jtaaaaaa/), [GitHub](https://github.com/jaredandrews), [LinkedIn](https://www.linkedin.com/in/jaredtandrews), [Spotify](https://open.spotify.com/user/1236628403)</span>
+
+<span class="n">Greetings</span><span class="o">!</span> <span class="n">My</span> <span class="n">name</span> <span class="n">is</span> <span class="n">Jared</span> <span class="n">Andrews</span><span class="p">.</span> <span class="n">I</span> <span class="n">am</span> <span class="n">a</span> <span class="n">freelance</span> <span class="n">software</span> <span class="n">developer</span><span class="p">.</span> <span class="n">I</span> <span class="n">was</span> <span class="n">raised</span> <span class="k">in</span> <span class="n">Central</span> <span class="n">Massachusetts</span><span class="p">,</span> <span class="n">went</span> <span class="n">to</span> <span class="n">college</span> <span class="n">at</span> <span class="n">WPI</span><span class="p">,</span> <span class="n">and</span> <span class="n">lived</span> <span class="k">in</span> <span class="n">Allston</span><span class="p">,</span> <span class="n">MA</span> <span class="k">for</span> <span class="n">serveral</span> <span class="n">years</span> <span class="n">after</span><span class="p">.</span> <span class="n">I</span> <span class="n">am</span> <span class="n">currently</span> <span class="n">traveling</span> <span class="n">the</span> <span class="n">United</span> <span class="n">States</span> <span class="n">indefinitely</span><span class="p">.</span> <span class="n">I</span> <span class="n">work</span> <span class="n">remotely</span> <span class="n">with</span> <span class="n">several</span> <span class="n">clients</span> <span class="n">on</span> <span class="n">Android</span> <span class="n">and</span> <span class="n">Web</span> <span class="n">Development</span> <span class="n">projects</span><span class="p">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">are</span> <span class="n">interested</span> <span class="k">in</span> <span class="n">working</span> <span class="n">on</span> <span class="n">a</span> <span class="n">project</span> <span class="n">with</span> <span class="n">me</span><span class="p">,</span> <span class="n">please</span> <span class="n">check</span> <span class="k">out</span> <span class="n">my</span> <span class="p">[</span><span class="n">Portfolio</span><span class="p">]()</span> <span class="n">and</span><span class="o">/</span><span class="n">or</span> <span class="p">[</span><span class="n">LinkedIn</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//www.linkedin.com/in/jaredtandrews) and shoot me an email. I would love to build a great app or website with you!</span>
+
+<span class="n">During</span> <span class="n">my</span> <span class="n">time</span> <span class="k">in</span> <span class="n">Boston</span> <span class="n">I</span> <span class="n">cofounded</span> <span class="n">Rock</span> <span class="n">and</span> <span class="n">Culture</span> <span class="n">blog</span><span class="p">,</span> <span class="p">[</span><span class="n">Spark</span> <span class="o">&amp;</span> <span class="n">Fizz</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//sparkandfizz.com) with some of my friends. If you are interested in DIY music and culture I would ask you to check it out. Along with handling the tech side of things I frequently write, edit videos and conduct interviews for Spark &amp; Fizz.</span>
+
+<span class="n">The</span> <span class="n">purpose</span> <span class="n">of</span> <span class="n">this</span> <span class="n">website</span> <span class="n">is</span> <span class="n">to</span> <span class="n">host</span> <span class="n">content</span> <span class="n">I</span> <span class="n">created</span> <span class="n">that</span> <span class="n">has</span> <span class="n">nowhere</span> <span class="k">else</span> <span class="n">to</span> <span class="n">live</span><span class="p">.</span> <span class="n">What</span> <span class="n">that</span> <span class="n">entails</span> <span class="n">will</span> <span class="n">become</span> <span class="n">clear</span> <span class="n">over</span> <span class="nl">time</span> <span class="p">:</span><span class="n">D</span>
+
+<span class="cp">### Technology Interests</span>
+<span class="o">*</span> <span class="n">Structurally</span> <span class="n">Sound</span> <span class="n">Android</span> <span class="n">Deveopment</span>
+<span class="o">*</span> <span class="n">Android</span> <span class="n">UI</span> <span class="n">and</span> <span class="n">Unit</span> <span class="n">Testing</span>
+<span class="o">*</span> <span class="n">Static</span> <span class="n">Sites</span> <span class="p">(</span><span class="n">Why</span> <span class="n">is</span> <span class="n">everything</span> <span class="n">on</span> <span class="n">the</span> <span class="n">internet</span> <span class="n">so</span> <span class="o">**</span><span class="n">slow</span><span class="o">**</span> <span class="k">in</span> <span class="mi">2017</span><span class="o">!?</span><span class="p">)</span>
+<span class="o">*</span> <span class="n">Artifical</span> <span class="n">Intelligence</span>
+<span class="o">*</span> <span class="n">Cellular</span> <span class="n">Automata</span>
+<span class="o">*</span> <span class="n">Generative</span> <span class="n">Art</span>
+<span class="o">*</span> <span class="n">The</span> <span class="n">Post</span> <span class="n">Automation</span> <span class="n">World</span>
+
+<span class="cp">### Other Interests</span>
+<span class="o">*</span> <span class="p">[</span><span class="n">Hacking</span><span class="p">](</span><span class="nl">http</span><span class="p">:</span><span class="c1">//www.catb.org/jargon/html/H/hacker.html)</span>
+<span class="o">*</span> <span class="n">DIY</span> <span class="n">Music</span><span class="p">,</span> <span class="n">DIY</span> <span class="n">everything</span> <span class="n">really</span>
+<span class="o">*</span> <span class="n">Motorcycle</span> <span class="n">Riding</span> <span class="n">and</span> <span class="n">Maintainance</span>
+<span class="o">*</span> <span class="p">[</span><span class="n">Stoicism</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//en.wikipedia.org/wiki/Stoicism) and [Absurdism](https://en.wikipedia.org/wiki/Absurdism)</span>
+<span class="o">*</span> <span class="n">Rock</span> <span class="n">Climbing</span>
+<span class="o">*</span> <span class="n">SCUBA</span> <span class="n">Diving</span>
+<span class="o">*</span> <span class="n">Fringe</span> <span class="n">Cultures</span>
+<span class="o">*</span> <span class="n">Photography</span> <span class="n">and</span> <span class="n">Video</span> <span class="n">Editing</span>
+
+<span class="o">*</span><span class="n">Portrait</span> <span class="n">Graphic</span> <span class="n">by</span> <span class="p">[</span><span class="n">Alyssa</span> <span class="n">Alarc</span><span class="err">ó</span><span class="n">n</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//alyssalarcondesign.com/), based on a photo by [Townsend Colon](https://twitter.com/townsendcolon?lang=en)*.</span>
+
+<span class="o">*</span><span class="n">Content</span> <span class="n">on</span> <span class="n">this</span> <span class="n">site</span> <span class="n">is</span> <span class="n">copyright</span> <span class="mi">2015</span> <span class="n">to</span> <span class="n">infinity</span> <span class="n">unless</span> <span class="n">otherwise</span> <span class="n">stated</span><span class="p">.</span><span class="o">*</span>  
+<span class="o">*</span><span class="n">Any</span> <span class="n">code</span> <span class="n">on</span> <span class="n">this</span> <span class="n">site</span> <span class="n">can</span> <span class="n">be</span> <span class="n">considered</span> <span class="p">[</span><span class="n">MIT</span> <span class="n">licensed</span><span class="p">](</span><span class="nl">https</span><span class="p">:</span><span class="c1">//opensource.org/licenses/MIT)*.  </span>
+<span class="o">*</span><span class="n">Any</span> <span class="n">views</span> <span class="n">expressed</span> <span class="n">on</span> <span class="n">this</span> <span class="n">site</span> <span class="n">are</span> <span class="n">those</span> <span class="n">of</span> <span class="n">the</span> <span class="n">author</span> <span class="n">and</span> <span class="k">do</span> <span class="n">not</span> <span class="n">reflect</span> <span class="n">views</span> <span class="n">held</span> <span class="n">by</span> <span class="n">past</span> <span class="n">or</span> <span class="n">present</span> <span class="n">employers</span><span class="p">.</span><span class="o">*</span>
+</pre></div>
+
+
+<p>That is a lot of text! Mostly using Markdown that we have already seen. New Markdown that hasn't been used before is <code></code> (two spaces at the end of a line) which causes the next line to be on a new line, it basically maps to <code>&lt;br/&gt;</code>.</p>
+<p>The other thing of note is the class I assign the portrait: <code>{ class='portrait large' }</code>. This applies the CSS classes <code>portrait</code> and <code>large</code>. <code>jaredandrews.css</code> has been updated with a large class:</p>
+<div class="highlight"><pre><span></span><span class="na">.large</span> <span class="err">{</span>
+    <span class="nl">display:</span> <span class="nf">block</span><span class="c">;</span>
+    <span class="no">float</span><span class="p">:</span> <span class="no">none</span><span class="c">;</span>
+<span class="err">}</span>
+
+<span class="na">...</span>
+
+<span class="err">/*</span> <span class="nf">Larger</span> <span class="no">than</span> <span class="no">tablet</span> <span class="p">*</span><span class="err">/</span>
+<span class="err">@</span><span class="nf">media</span> <span class="p">(</span><span class="no">min-width</span><span class="p">:</span> <span class="mi">750</span><span class="no">px</span><span class="p">)</span> <span class="err">{</span>
+    <span class="na">.large</span> <span class="err">{</span>
+        <span class="nl">display:</span> <span class="nf">inline-block</span><span class="c">;</span>
+        <span class="no">float</span><span class="p">:</span> <span class="no">left</span><span class="c">;</span>
+    <span class="err">}</span>
+    <span class="na">...</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>These classes make the text wrap the portrait on "larger than tablet" screen sizes and go under the portrait for mobile screen sizes.</p>
+<p>I wanted to include the "current location" shown on <code>index.html</code> as well but it turns out that Pelican variables are not available for pages or articles. For now I will only show it on <code>index.html</code> tho I would like to display it on the About page in the future. To do this I would need to make a specific page template for the about page. </p>
+<h3>Wrapping Up</h3>
+<p>The site is done! Well close... I still need to figure out how to turn on RSS and deploy this bad boy! Then I need to actually write more content :D We are getting close!</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub. </p>
+<p>To see what the site looked after these changes were made <a href="">click here</a>. </p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/08/making-this-site-part-7-design-improvements.html">
+      Making This Site, Part 7: Design Improvements
+    </a>
+  </span>
+
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
