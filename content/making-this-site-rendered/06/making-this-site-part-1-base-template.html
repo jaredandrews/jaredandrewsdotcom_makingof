@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 1: Base Template — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/06/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/06/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/06/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/06">Jared Andrews</a></h1>
+        <nav><a href="#">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/06/archives.html">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="article-title">Making This Site, Part 1: Base Template</h1>
+<footer class="article-metadata">
+    Nov 03, 2015
+    / <a href="/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="/tag/programming.html" rel="tag">programming</a>,
+	<a href="/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="/tag/pelican.html" rel="tag">pelican</a>,
+	<a href="/tag/skeleton.html" rel="tag">skeleton</a>,
+	<a href="/tag/jinja2.html" rel="tag">jinja2</a>
+
+</footer>
+<div class="article-body"><p>Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. </p>
+<p>To view this post the way it looked by the end of making all the changes described in this article <a href="">click here</a></p>
+<h3>Cleaning the Config</h3>
+<p>Each Pelican project has <code>pelicanconf.py</code> file that described site
+wide metadata. The <code>pelican-quickstart</code> tool used in the previous
+entry to create the skeleton for this site generates a conf file with
+sensible defaults:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*- #</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">AUTHOR</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;Jared Andrews&#39;</span>
+<span class="n">SITENAME</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;Jared Andrews&#39;</span>
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:8000&#39;</span>
+
+<span class="n">PATH</span> <span class="o">=</span> <span class="s1">&#39;content&#39;</span>
+
+<span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s1">&#39;America/New_York&#39;</span>
+
+<span class="n">DEFAULT_LANG</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;en&#39;</span>
+
+<span class="c1"># Feed generation is usually not desired when developing</span>
+<span class="n">FEED_ALL_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">CATEGORY_FEED_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">TRANSLATION_FEED_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">AUTHOR_FEED_ATOM</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">AUTHOR_FEED_RSS</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="c1"># Blogroll</span>
+<span class="n">LINKS</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;Pelican&#39;</span><span class="p">,</span> <span class="s1">&#39;http://getpelican.com/&#39;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s1">&#39;Python.org&#39;</span><span class="p">,</span> <span class="s1">&#39;http://python.org/&#39;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s1">&#39;Jinja2&#39;</span><span class="p">,</span> <span class="s1">&#39;http://jinja.pocoo.org/&#39;</span><span class="p">),</span>
+         <span class="p">(</span><span class="s1">&#39;You can modify those links in your config file&#39;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">),)</span>
+
+<span class="c1"># Social widget</span>
+<span class="n">SOCIAL</span> <span class="o">=</span> <span class="p">((</span><span class="s1">&#39;You can add links in your config file&#39;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">),</span>
+          <span class="p">(</span><span class="s1">&#39;Another social link&#39;</span><span class="p">,</span> <span class="s1">&#39;#&#39;</span><span class="p">),)</span>
+
+<span class="n">DEFAULT_PAGINATION</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c1"># Uncomment following line if you want document-relative URLs when developing</span>
+<span class="c1">#RELATIVE_URLS = True</span>
+</pre></div>
+</td></tr></table>
+
+<p>Many of the keys directly map to the questions posed by
+<code>pelican-quickstart</code>. The keys <code>LINKS</code> and <code>SOCIAL</code> are
+not needed for my purposes so I have removed them. Once they are
+removed you will notice that the sections containing them disapear
+from the generated site. I also updated my <code>SITEURL</code> to point to
+localhost. We will need to make this adjustable at some point when we
+make this site deployable.</p>
+<h3>Getting Started on a Custom Theme</h3>
+<p>To create a custom theme for Pelican you must create a directory for
+your theme that has three directories, <code>static</code>,
+<code>templates</code> and <code>css</code>. From the root of your Pelican project:</p>
+<div class="highlight"><pre><span></span>$ mkdir -p theme/templates
+$ mkdir -p theme/static/css
+</pre></div>
+
+
+<p>Once you have created these directories open your <code>pelicanconf</code>
+and add the following line:</p>
+<div class="highlight"><pre><span></span>THEME=&#39;theme&#39;
+</pre></div>
+
+
+<p>If you generate the site again at this point, y ou will notice it is
+themeless and composed entired of text and basic HTML with no
+style. From here we will develop our own theme.</p>
+<h3>The Structure of a Theme</h3>
+<p>Themes in Pelican are created with templates using [language syntax]
+that live in teh <code>theme/templates</code> directory. The structure of the
+<code>templates</code> directory can be found in the
+<a href="http://docs.getpelican.com/en/3.6.3/themes.html">Pelican Docs</a>.</p>
+<p>We will start with <code>base.html</code> which provides the scaffolding for
+all other templates in a theme.</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/base.html
+</pre></div>
+
+
+<h3>Designing Base.html</h3>
+<p>As noted in <a href="/making-this-site-part-0-setup.html">Part 0</a> of this
+series I want the layout of my site to be extremely simple.</p>
+<p>For the header of the site, which will be the primary component
+provided by <code>base.html</code> I was only interested in displaying my name
+and navigation.</p>
+<p>The basic design I came up with looks like this:</p>
+<p><img alt="Sketch of Header Design" src="/images/rough_design.jpg"></p>
+<h4>A Quick Aside on Adding Images to Posts</h4>
+<p>As I use more Markdown tags in these posts I will try to remember
+to point them out. You can add an image to a markdown file with:</p>
+<div class="highlight"><pre><span></span><span class="o">!</span><span class="p">[</span><span class="n">Alt</span> <span class="n">Text</span><span class="p">](</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+
+
+<p>To get pelican to include your images in it's output create a
+directory in <code>content</code> called <code>images</code> and add the following line to
+your <code>pelicanconf.py</code>:</p>
+<div class="highlight"><pre><span></span>STATIC_PATHS = [&#39;images&#39;]
+</pre></div>
+
+
+<h4>Defining base.html</h4>
+<p>Since <code>base.html</code> will be extended by all other templates I need
+to include the <code>html</code>, <code>head</code> and <code>body</code> tags. Let's start
+by looking at the <code>head</code> tag and its contents:</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">DEFAULT_LANG</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{{</span> <span class="nv">SITENAME</span> <span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">description</span> <span class="cp">%}</span><span class="s">Personal site of Jared Andrews</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="s">&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;author&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">AUTHOR</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;//fonts.googleapis.com/css?family=Raleway:400,300,600&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/theme/css/normalize.css&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/theme/css/skeleton.css&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/theme/css/jaredandrews.css&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- TODO --&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>The first thing you might notice about this code are blocks like <code>{{
+SITENAME }}</code> and <code>{% endblock %}</code>. Pelican uses the
+<a href="http://jinja.pocoo.org/">Jinja2 Templating Engine</a> for templating.</p>
+<p>Jinja2 provides a
+<a href="http://jinja.pocoo.org/docs/2.9/templates/">DSL for defining templates</a>
+in a python-like language. Pelican provides
+<a href="http://docs.getpelican.com/en/3.6.3/themes.html">a list of variables that can be accessed for each templated page</a>. Variables
+defined in <code>pelicanconf.py</code> can also be accessed by any template.</p>
+<p>Some important parts from above:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;title&gt;</span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{{</span> <span class="nv">SITENAME</span> <span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="nt">&lt;/title&gt;</span>
+</pre></div>
+
+
+<p><code>{{ SITENAME }}</code> prints the <code>SITENAME</code> defined in <code>pelicanconf.py</code>. By
+surround <code>{{ SITENAME }}</code> with <code>{% block title %} ... {% endblock %}</code>
+I am allowing child templates to override the content of <code>{% block
+title %}</code>. This will become important when defining the child pages
+where I don't want the <code>&lt;title&gt;</code> to just be the name of this site.</p>
+<div class="highlight"><pre><span></span><span class="x">        &lt;link rel=&quot;stylesheet&quot; href=&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="x">/theme/css/normalize.css&quot; type=&quot;text/css&quot;&gt;</span>
+<span class="x">        &lt;link rel=&quot;stylesheet&quot; href=&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="x">/theme/css/skeleton.css&quot; type=&quot;text/css&quot;&gt;</span>
+<span class="x">        &lt;link rel=&quot;stylesheet&quot; href=&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="x">/theme/css/jaredandrews.css&quot; type=&quot;text/css&quot;&gt;</span>
+</pre></div>
+
+
+<p>The above code imports a few css files from my <code>theme/assets/css</code>
+directory.</p>
+<p>I am using <a href="http://getskeleton.com/">Skeleton</a> as the only css
+"framework" for this project. Skeleton provides a nice set of
+responsive styles for desktop and mobile. Skeleton asks that you
+import <code>normalize.css</code> as well. If you are not familiar with this file
+it basically sets the defautl values for all css elements so you are
+working with a consistent base across browsers.</p>
+<p>Then there is <code>jaredandrews.css</code>, this is the file I will put any
+additional css I code I need in. We will look at this file again
+later.</p>
+<p>Now lets add the content of <code>&lt;body&gt;</code> which looks like this:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;container&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row header&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">&quot;site-title&quot;</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span>Jared Andrews<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
+        <span class="nt">&lt;nav&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>about<span class="nt">&lt;/a&gt;</span> / <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>archive<span class="nt">&lt;/a&gt;</span> / <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span><span class="nt">&gt;</span>rss<span class="nt">&lt;/a&gt;&lt;/nav&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+        <span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+
+<p>The first <code>&lt;div&gt;</code> has the class of <code>container</code>. This is the root
+element for a Skeleton layout. Skeleton will center this div on the
+page.</p>
+<p>The second <code>&lt;div&gt;</code> has a class of <code>row</code> and <code>header</code>. <code>row</code> is another
+class provided by Skeleton. It basically indicates that the selected
+<code>&lt;div&gt;</code> lives on a row in the Skeleton grid. <code>header</code> is the class
+that I will use to define the movement of the title and navigation
+between mobile and desktop.</p>
+<h4>Using CSS to Adjust the Header</h4>
+<p>Let's start with a basic template for <code>jaredandrews.css</code>:</p>
+<div class="highlight"><pre><span></span><span class="cm">/* Default and mobile */</span><span class="w"></span>
+
+<span class="cm">/* Larger than mobile */</span><span class="w"></span>
+<span class="err">@</span>media<span class="w"> </span><span class="o">(</span>min<span class="o">-</span><span class="nl">width</span><span class="o">:</span><span class="w"> </span><span class="m">400</span>px<span class="o">)</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+
+<span class="cm">/* Larger than phablet */</span><span class="w"></span>
+<span class="err">@</span>media<span class="w"> </span><span class="o">(</span>min<span class="o">-</span><span class="nl">width</span><span class="o">:</span><span class="w"> </span><span class="m">550</span>px<span class="o">)</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+
+<span class="cm">/* Larger than tablet */</span><span class="w"></span>
+<span class="err">@</span>media<span class="w"> </span><span class="o">(</span>min<span class="o">-</span><span class="nl">width</span><span class="o">:</span><span class="w"> </span><span class="m">750</span>px<span class="o">)</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+
+<span class="cm">/* Larger than desktop */</span><span class="w"></span>
+<span class="err">@</span>media<span class="w"> </span><span class="o">(</span>min<span class="o">-</span><span class="nl">width</span><span class="o">:</span><span class="w"> </span><span class="m">1000</span>px<span class="o">)</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+
+<span class="cm">/* Larger than Desktop HD */</span><span class="w"></span>
+<span class="err">@</span>media<span class="w"> </span><span class="o">(</span>min<span class="o">-</span><span class="nl">width</span><span class="o">:</span><span class="w"> </span><span class="m">1200</span>px<span class="o">)</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Skeleton recommends using this set of media queries in your cusotm
+css. Anything defined outside of a media query will both be the
+default css for an element and what you see on mobile. Media queries
+are then provided for larger screens.</p>
+<p>Let's start with default/mobile:</p>
+<div class="highlight"><pre><span></span><span class="na">.header</span> <span class="no">nav</span> <span class="err">{</span>
+    <span class="nl">display:</span> <span class="nf">block</span><span class="c">;</span>
+    <span class="no">text-align</span><span class="p">:</span> <span class="no">center</span><span class="c">;</span>
+<span class="err">}</span>
+
+<span class="na">.header</span> <span class="no">.site-title</span> <span class="err">{</span>
+    <span class="nl">margin:</span> <span class="nf">auto</span><span class="c">;</span>
+    <span class="no">text-align</span><span class="p">:</span> <span class="no">center</span><span class="c">;</span>
+<span class="err">}</span>
+</pre></div>
+
+
+<p>These selectors center both elements and put the title above the
+navigation.</p>
+<p>After I define behavior for "larger than tablet" queries. The decision
+to break here was based on my own testing with different screen
+sizes. I left that the desktop layout looked best starting at this point.</p>
+<div class="highlight"><pre><span></span><span class="c">/* Larger than tablet */</span>
+<span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">750px</span><span class="o">)</span> <span class="p">{</span>
+    <span class="p">.</span><span class="nc">header</span> <span class="p">.</span><span class="nc">site-title</span> <span class="p">{</span>
+        <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="p">.</span><span class="nc">header</span> <span class="nt">nav</span> <span class="p">{</span>
+        <span class="k">display</span><span class="p">:</span> <span class="kc">inline</span><span class="p">;</span>
+        <span class="k">float</span><span class="p">:</span> <span class="kc">right</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now the layout of the header will react to the type of device it is
+being views on.</p>
+<h3>Wrapping Up</h3>
+<p>At this point we have a pretty nice looking site. Of course we will be
+tweaking everything else, but just by providing the <code>base.html</code>
+template we are able to make a lot of big changes to the way the site
+looks.</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.</p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/06/making-this-site-part-0-setup.html">
+      Making This Site , Part 0: Setup
+    </a>
+  </span>
+
+  <span style="float:right">
+    <a href="http://jaredandrews.com/making-this-site-rendered/06/making-this-site-part-2-index-template.html">
+      Making This Site, Part 2: Index Template
+    </a>
+    &#8594;
+  </span>
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
