@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 4: Category Template — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/05/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/05/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/05/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/05">Jared Andrews</a></h1>
+        <nav><a href="#">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/05/archives.html">archive</a> / <a href="#">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="article-title">Making This Site, Part 4: Category Template</h1>
+<footer class="article-metadata">
+    Feb 07, 2017
+    / <a href="/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="/tag/programming.html" rel="tag">programming</a>,
+	<a href="/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="/tag/pelican.html" rel="tag">pelican</a>,
+	<a href="/tag/jinja2.html" rel="tag">jinja2</a>
+
+</footer>
+<div class="article-body"><p>Welcome to the fourth installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. </p>
+<h3>The Category Template</h3>
+<p><code>category.html</code> is a template for showing all the articles in a specific category. For my purposes I would like to show the name of the category, a description and a time ordered list of all the posts associated with it.</p>
+<p>Lets get started:</p>
+<div class="highlight"><pre><span></span>$ touch theme/templates/category.html
+</pre></div>
+
+
+<p>Now we can open up our new template and add some boilerplate:</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">&quot;base.html&quot;</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">title</span> <span class="cp">%}{{</span> <span class="nv">category</span> <span class="cp">}}</span> — <span class="cp">{{</span> <span class="nv">SITENAME</span> <span class="cp">}}{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span>
+    <span class="nt">&lt;h2&gt;</span><span class="cp">{{</span> <span class="nv">category</span> <span class="cp">}}</span><span class="nt">&lt;/h2&gt;</span>
+    <span class="c">&lt;!-- TODO - content --&gt;</span>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span>
+</pre></div>
+
+
+<p>The category template is has it's own <a href="http://docs.getpelican.com/en/stable/themes.html#category-html">set of variables</a>. Above we use the <code>category</code> variable to print the category name in both the <code>&lt;title&gt;</code> block and in the content of the page.</p>
+<h4>Listing Articles in a Category</h4>
+<p>I want to list the articles in a category in the same way that I do on the home page. This opens up another codesharing opportunity, let's take the the article listing code in <code>index.html</code>, modify it and put it in <code>macros.html</code>.</p>
+<div class="highlight"><pre><span></span><span class="cp">{%</span> <span class="k">macro</span> <span class="nv">get_article_list</span><span class="o">(</span><span class="nv">articles</span><span class="o">,</span> <span class="nv">default_category</span><span class="o">)</span> <span class="cp">%}</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="cp">{%</span> <span class="k">for</span> <span class="nv">article</span> <span class="k">in</span> <span class="nv">articles</span> <span class="cp">%}</span>
+            <span class="nt">&lt;li&gt;</span>
+                <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/</span><span class="cp">{{</span> <span class="nv">article.url</span> <span class="cp">}}</span><span class="s">&quot;</span><span class="nt">&gt;</span><span class="cp">{{</span> <span class="nv">article.title</span> <span class="cp">}}</span><span class="nt">&lt;/a&gt;</span>
+                <span class="err">&amp;</span>nbsp
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;post-meta&quot;</span><span class="nt">&gt;</span>(<span class="cp">{{</span> <span class="nv">get_meta_data_html</span><span class="o">(</span><span class="nv">article</span><span class="o">,</span> <span class="nv">default_category</span><span class="o">)</span> <span class="cp">}}</span>)<span class="nt">&lt;/span&gt;</span>
+            <span class="nt">&lt;/li&gt;</span>
+        <span class="cp">{%</span> <span class="k">endfor</span> <span class="cp">%}</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="cp">{%</span> <span class="k">endmacro</span> <span class="cp">%}</span>
+</pre></div>
+
+
+<p>Because of the dependence on the <code>get_meta_data_html</code> macro we also need to pass <code>DEFAULT_CATEGORY</code> to <code>get_article_list</code>. To make use of this new macro, add code to import it at the top of the file:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="kn">from</span> <span class="s1">&#39;macros.html&#39;</span> <span class="kn">import</span> <span class="nn">get_article_list</span>  <span class="o">%</span><span class="p">}</span>
+</pre></div>
+
+
+<p>And then replace `<!-- TODO - content --> with:</p>
+<div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">get_article_list</span><span class="o">(</span><span class="nv">articles</span><span class="o">,</span> <span class="nv">DEFAULT_CATEGORY</span><span class="o">)</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p><code>articles</code> is another template variable that provides a list of articles associated with a category.</p>
+<h4>Adding a Category Description With category_meta</h4>
+<p>At this point the category page is almost exactly how I want it. The only other thing I desire is a description of the category which will be printed above the list of articles. A category description is not supported by Pelican out of the box. </p>
+<p>With a quick Google search I found the <a href="https://github.com/getpelican/pelican-plugins/tree/master/category_meta">category_meta</a> plugin which allegedly provided a way to add a description to a Category.</p>
+<h4>Setting Up category_meta</h4>
+<p>I copied the <code>category_meta</code> project into my <code>plugins</code> folder.</p>
+<p><code>category_meta</code> calls for your posts to be organized such that there is a directory for each category and all the posts associated with that category are in that directory. Thus my <code>content</code> folder went from looking like this:</p>
+<div class="highlight"><pre><span></span>content
+├── pelican_00_setup.md
+├── pelican_01_base.md
+├── pelican_02_index.md
+└── pelican_03_article.md
+</pre></div>
+
+
+<p>to:</p>
+<div class="highlight"><pre><span></span>content
+└── making-this-site
+     ├── pelican_00_setup.md
+     ├── pelican_01_base.md
+     ├── pelican_02_index.md
+     ├── pelican_03_article.md
+     └── pelican_04_category.md
+</pre></div>
+
+
+<p>The name of this new directory is also what is used for the category page slug. Thus the categeory page for "Making My Site" will by <code>categories/making-this-site.html</code>.</p>
+<p><code>category_meta</code> also specifies that every category folder contains an <code>index.md</code>, this file holds the metadata for the category:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="n">Making</span> <span class="n">This</span> <span class="n">Site</span>
+
+<span class="n">A</span> <span class="n">flow</span> <span class="n">of</span> <span class="n">conscious</span> <span class="n">tutorial</span> <span class="n">describing</span><span class="o">,</span> <span class="k">in</span> <span class="n">excruciating</span> <span class="n">detail</span><span class="o">,</span> <span class="n">how</span> <span class="k">this</span> <span class="n">site</span> <span class="n">was</span> <span class="n">made</span><span class="o">.</span>
+</pre></div>
+
+
+<p>Going back to <code>category.html</code> we can show the description underneath the title with:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;p&gt;</span><span class="cp">{{</span> <span class="nv">category.description</span> <span class="cp">}}</span><span class="nt">&lt;/p&gt;</span>
+</pre></div>
+
+
+<p>The documentation also says to remove the category key from posts, so I did that as well.</p>
+<p>Now we should have category descriptions!</p>
+<h5>Time For a Side Quest: Fixing The category_meta Plugin</h5>
+<p>After adding all the <code>category_meta</code> related files I went and ran <code>./develop_server start</code>. The site compiled and I went to check out my sweet new category page. Everything looked good but my category description was missing!</p>
+<p>I went back and looked at the output of <code>develop_server</code> and saw:</p>
+<div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="o">:</span> <span class="n">Skipping</span> <span class="n">category</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="na">md</span><span class="o">:</span> <span class="n">could</span> <span class="n">not</span> <span class="n">find</span> <span class="n">information</span> <span class="n">about</span> <span class="s1">&#39;date&#39;</span>
+<span class="n">ERROR</span><span class="o">:</span> <span class="n">No</span> <span class="n">category</span> <span class="n">assignment</span> <span class="k">for</span> <span class="o">~/</span><span class="n">pelican_category_meta_problems</span><span class="sr">/content/category/post.md (~/pelican_category_meta_problems/content/category/</span><span class="n">post</span><span class="o">.</span><span class="na">md</span><span class="o">)</span>
+</pre></div>
+
+
+<p>Hmm okay... It didn't really make sense but I went ahead and added a date to <code>making-this-site/index.md</code>.</p>
+<div class="highlight"><pre><span></span><span class="n">Date</span><span class="o">:</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span> <span class="mi">10</span><span class="o">:</span><span class="mi">02</span>
+</pre></div>
+
+
+<p>Building the again a new error appeared:</p>
+<div class="highlight"><pre><span></span><span class="n">CRITICAL</span><span class="o">:</span> <span class="n">AttributeError</span><span class="o">:</span> <span class="n">can</span><span class="err">&#39;</span><span class="n">t</span> <span class="kd">set</span> <span class="n">attribute</span>
+</pre></div>
+
+
+<p>Since I have the source of the plugin in my repo I was able to trace this warning back into the <code>category_meta</code> plugin. In <code>plugins/category_meta/category_meta.py</code> on line 73, there is this piece of code:</p>
+<div class="highlight"><pre><span></span>category.slug = slug
+</pre></div>
+
+
+<p>First I just commented it out. This change got my category description to appear but I didn't feel good about it, obviously that line was there for a reason, right?!</p>
+<p>From what I can tell the purpose of that line is to set the categories slug to the name of the categories directory name. Line 73 is part of the function <code>make_category(article, slug)</code>, and indeed, it is called in <code>pretaxonomy_hook</code> function like this:</p>
+<div class="highlight"><pre><span></span>make_category(article, os.path.basename(dirname))
+</pre></div>
+
+
+<p>By removing line 73 I would lose the ability to set the category slug based on the directory and I'm not even sure how the category slug would be generated. I didn't did into the Pelican source enough but from what I can tell it took the name of the category and snakecased.</p>
+<p>So what could have caused this issue? At the time of writing this article I am using the newest vesrion of Pelican, <code>3.7.1</code>. My guess woulld be that at some point <code>category.slug</code> was mutable and in this version it is not. I inspected the <code>category</code> object to see if I could edit the slug in another way. Running <code>dir(category)</code> revealed that there was another member of <code>category</code> called <code>_slug</code>, so I changed line 73 to:</p>
+<div class="highlight"><pre><span></span>category._slug = slug
+</pre></div>
+
+
+<p>This fixed the issue! BUT I had now modified the plugin to access what, by Python convention, is supposed to be a private variable. The danger in doing this is that the variable could disappear or change next time I upgrade Pelican. </p>
+<p>This made me feel bad but I have a website to build! Thus I documented and reported the issue to <a href="https://github.com/getpelican/pelican-plugins">pelican-plugins on GitHub</a>, you can see the issue <a href="https://github.com/getpelican/pelican-plugins/issues/855">here</a>. Hopefully, by the time this article is published there will be a cleaner solution than what I have done above.</p>
+<h3>Wrapping Up</h3>
+<p>After al that, we now have our own Category template!</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.</p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/05/making-this-site-part-3-article-template.html">
+      Making This Site, Part 3: Article Template
+    </a>
+  </span>
+
+  <span style="float:right">
+    <a href="http://jaredandrews.com/making-this-site-rendered/05/making-this-site-part-5-archive-template.html">
+      Making This Site, Part 5: Archive Template
+    </a>
+    &#8594;
+  </span>
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
