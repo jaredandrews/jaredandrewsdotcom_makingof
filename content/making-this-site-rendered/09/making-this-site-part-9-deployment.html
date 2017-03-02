@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+      <title>Making This Site, Part 9: Deployment — Jared Andrews</title>
+
+      <meta name="description" content="Personal site of Jared Andrews">
+      <meta name="author" content="Jared Andrews">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+      <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/09/theme/css/normalize.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/09/theme/css/skeleton.css" type="text/css">
+      <link rel="stylesheet" href="http://jaredandrews.com/making-this-site-rendered/09/theme/css/jaredandrews.css" type="text/css">
+
+      <link rel="icon" type="image/png" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="row header">
+	<h1 class="site-title"><a href="http://jaredandrews.com/making-this-site-rendered/09">Jared Andrews</a></h1>
+        <nav><a href="http://jaredandrews.com/making-this-site-rendered/09/pages/about.html">about</a> / <a href="http://jaredandrews.com/making-this-site-rendered/09/archives.html">archive</a> / <a href="http://jaredandrews.com/making-this-site-rendered/09/feeds/all.atom.xml">rss</a></nav>
+      </div>
+
+      <div class="row">
+<h2 class="title">Making This Site, Part 9: Deployment</h2>
+<footer class="metadata">
+    Feb 28, 2017
+    / <a href="http://jaredandrews.com/making-this-site-rendered/09/category/making-this-site.html">Making This Site</a>
+    /
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/programming.html" rel="tag">programming</a>,
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/web-dev.html" rel="tag">web-dev</a>,
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/pelican.html" rel="tag">pelican</a>,
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/make.html" rel="tag">make</a>,
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/rss.html" rel="tag">rss</a>,
+	<a href="http://jaredandrews.com/making-this-site-rendered/09/tag/scp.html" rel="tag">scp</a>
+
+</footer>
+<div><p>The site is now complete. I am going to enable RSS and deploy it to my web host with a single command.</p>
+<h3>Publishing the Site</h3>
+<p>I thought there would be some special steps to enable RSS but it turns out that I set it up in <a href="http://jaredandrews.com/making-this-site-rendered/09/making-this-site-part-0-setup.html">Part 0</a> when using <code>pelican-quickstart</code>. There is a second config file named <code>publishconf.py</code>. This contains everything from <code>pelicanconf.py</code> and the directives for setting up RSS. Here is what <code>pelican-quickstart</code> generated:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="c1"># This file is only used if you use `make publish` or</span>
+<span class="c1"># explicitly specify it as your config file.</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pelicanconf</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s1">&#39;http://jaredandrews.com&#39;</span>
+<span class="n">RELATIVE_URLS</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="n">FEED_ALL_ATOM</span> <span class="o">=</span> <span class="s1">&#39;feeds/all.atom.xml&#39;</span>
+<span class="n">CATEGORY_FEED_ATOM</span> <span class="o">=</span> <span class="s1">&#39;feeds/</span><span class="si">%s</span><span class="s1">.atom.xml&#39;</span>
+
+<span class="n">DELETE_OUTPUT_DIRECTORY</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># Following items are often useful when publishing</span>
+
+<span class="c1">#DISQUS_SITENAME = &quot;&quot;</span>
+<span class="c1">#GOOGLE_ANALYTICS = &quot;&quot;</span>
+</pre></div>
+
+
+<p>I haven't set up Disqus or Google Analytics but I may in the future so I am leaving the commented out keys.</p>
+<p>You can get the published version of the site by running <code>make publish</code>. This generates a site structure with an RSS feed and uses <code>http://jaredandrews.com</code> instead of <code>localhost:8000</code>. Those are the only real differences as far as I can tell.</p>
+<p>The RSS feed gets put at <code>feeds/all.atom.xml</code> so I will update the Nav Bar to reflect that:</p>
+<div class="highlight"><pre><span></span>... <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">{{</span> <span class="nv">SITEURL</span> <span class="cp">}}</span><span class="s">/feeds/all.atom.xml&quot;</span><span class="nt">&gt;</span>rss<span class="nt">&lt;/a&gt;&lt;/nav&gt;</span>
+</pre></div>
+
+
+<h3>Setting Up Hosting</h3>
+<p>I have had "jaredandrews.com" registered on <a href="http://namecheap.com/">Namecheap</a> for a long time. I could host the site there but I decided to go with a cheaper and simpler option, <a href="https://www.nearlyfreespeech.net/">NearlyFreeSpeech</a>. NearlyFreeSpeech is pay as you go which makes it great for hosting a simple static site. I only intend to host html, css and javascript on this site so I don't need anything more than that. Though NearlyFreeSpeech does provide some additional features.</p>
+<p>I will now detail how I setup a new site with NearlyFreeSpeech.</p>
+<p>Once you login to NearlyFreeSpeech click on "accounts" and click "Create a New Site". Here you will need to select the account to associate with the new site. This is the account that pays for your hosting. You should be prompted on how to create an account and deposit money when you create a NearlyFreeSpeech account.</p>
+<p>After selecting an account you create a shortname for your new site, I went with "jta". After that click "create new site". For now the site can be accessed with the url provided by NearlyFreeSpeech. Later we will set up DNS on NameCheap so the site can be accessed from "jaredandrews.com".</p>
+<p>After you create a new site you will be provided with an alias and SSH information.</p>
+<p>I want to add my public key to the server so I can log in to it without entering a password. NearlyFreeSpeech has a space to add public keys in the profile section of the website. Once you have that you can access your server with:</p>
+<div class="highlight"><pre><span></span>$ ssh jta@ssh.server.nearlyfreespeech.net
+</pre></div>
+
+
+<h3>Pushing the Published Site</h3>
+<div class="highlight"><pre><span></span>$ make clean
+$ make publish
+$ scp -r output/.alias@ssh.server.nearlyfreespeech.net:/home/public/
+</pre></div>
+
+
+<p>After doing this I checked out the site on the NearlyFreeSpeech provided alias. The files made it there but since all the links reference "jaredandrews.com" it was fairly inoperational. Lets make "jaredandrews.com" point to NearlyFreeSpeech.</p>
+<h3>Setting Up the Domain</h3>
+<p>On NearlyFreeSpeech go to the sites panel and select the recently created site. Click "add a new alias" and use your domain. I added "jaredandrews.com".</p>
+<p>Go to the "domains" panel and under the DNS column click "add". After that click the newly created "manage" button. Here you will see the Name Servers your site is using.</p>
+<p>First let's log into NameCheap. While trying to login to my account I discovered that NameCheap blocks the VPN service I use. It doesn't appear to block it directly though, instead it repeatedly says my login info is wrong. I resetted my password 3 times before turning off my VPN. So yea... if you are on a Private Internet Access VPN you might wanna turn it off before going on NameCheap :(</p>
+<p>Once you FINALLY get into NameCheap click "manage" next to your domain. In the "Name Servers" row select "Custom DNS" and put the NearlyFreeSpeech servers in the appropriate text boxes. Then click the green checkmark.</p>
+<p>It can take up to 48 hours for the Name Server change to propogate. In my experience it takes a lot less than that.</p>
+<p>Once the Name Server change went through I browsed the site and made sure everything was working. It was!</p>
+<p><img alt="The deployed site viewed in FireFox" src="/images/deployed_site.png"></p>
+<p>It took about 1 hour for the site to show up on my internet connection.</p>
+<h3>Adding a 404 Page</h3>
+<p>While checking out my new site, I decided to see what a 404 page looked like. The default NearlyFreeSpeech 404 page doesn't look that great, and it's style is inconsistent with the rest of the site.</p>
+<div class="highlight"><pre><span></span>$ touch /content/pages/404.md
+</pre></div>
+
+
+<p>I decided to use <code>cowsay</code> to display an error message. This is what <code>404.md</code> looks like:</p>
+<div class="highlight"><pre><span></span><span class="n">Title</span><span class="o">:</span> <span class="mi">404</span>
+
+     <span class="n">______________________</span>
+    <span class="o">&lt;</span> <span class="mi">404</span> <span class="o">-</span> <span class="n">Page</span> <span class="n">not</span> <span class="n">found</span> <span class="o">&gt;</span>
+     <span class="o">----------------------</span>
+            <span class="o">\</span>   <span class="o">^</span><span class="n">__</span><span class="o">^</span>
+             <span class="o">\</span>  <span class="o">(</span><span class="n">oo</span><span class="o">)\</span><span class="n">_______</span>
+                <span class="o">(</span><span class="n">__</span><span class="o">)\</span>       <span class="o">)\/\</span>
+                    <span class="o">||----</span><span class="n">w</span> <span class="o">|</span>
+                    <span class="o">||</span>     <span class="o">||</span>
+</pre></div>
+
+
+<p>Pelican doesn't have anyway to handle error pages, as this is something typically handled by a server. I never figured out how to show my own error pages with the Python simple server.</p>
+<p>To show your own 404 page on an Apache NearlyFreeSpeech server you need to add a <code>.htaccess</code> file to your <code>home/public</code> directory:</p>
+<div class="highlight"><pre><span></span>$ ssh jta@ssh.server.nearlyfreespeech.net
+$ touch .htaccess
+$ <span class="nb">echo</span> ErrorDocument <span class="m">404</span> /pages/404.html &gt;&gt; .htaccess
+</pre></div>
+
+
+<p>After a redeploy of the site the error page will show up when accessing unknown pages.</p>
+<h3>Removing Line Numbers From Code Snippets</h3>
+<p>You may have noticed that the code snippet for <code>publishconf.py</code> above and the code snippet for <code>pelicanconf.py</code> in <a href="http://jaredandrews.com/making-this-site-rendered/09/making-this-site-part-1-base-template.html">Part 1</a> have line numbers while the rest of the code snippets do not. These code snippets are unique in that they had shebangs at the top. This apparently triggers line numbers in Pelicans syntax highlighting system There appears to be a <a href="http://docs.getpelican.com/en/stable/content.html?highlight=syntax%20highlighting#syntax-highlighting">way to turn this off explicitly when using RST as the markdown language</a> but not when you using Markdown. Thus I have removed the shebang lines from both places as I don't really find the line numbers useful.</p>
+<h3>Wrapping Up</h3>
+<p>At this point the site is live. I need to go back and do spell checking and probably clean up a few design related issue. I also need to go thru each post and include GitHub links.</p>
+<p>To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub. </p>
+<p>To see what the site looked after these changes were made <a href="">click here</a>. </p></div>
+<div class="row">
+  <span style="float:left">
+    &#8592;
+    <a href="http://jaredandrews.com/making-this-site-rendered/09/making-this-site-part-8-page-template.html">
+      Making This Site, Part 8: Page Template
+    </a>
+  </span>
+
+
+</div>
+      </div>
+      
+      </div>
+
+    </body>
+</html>    
