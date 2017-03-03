@@ -266,7 +266,8 @@ being views on.
 
 At this point we have a pretty nice looking site. Of course we will be
 tweaking everything else, but just by providing the `base.html`
-template we are able to make a lot of big changes to the way the site
-looks.
+template we are able to make a lot of big changes to the way the site looks.
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/01).
+
+[Commit]() and [diff]() on GitHub.

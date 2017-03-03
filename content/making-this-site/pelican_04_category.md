@@ -133,4 +133,7 @@ This made me feel bad but I have a website to build! Thus I documented and repor
 
 After al that, we now have our own Category template!
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/04).
+
+[Commit]() and [diff]() on GitHub.
+  

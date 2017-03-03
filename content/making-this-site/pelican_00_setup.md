@@ -2,9 +2,9 @@ Title: Making This Site , Part 0: Setup
 Date: 2015-11-01 10:02 
 Tags: programming, web-dev, pelican
 
-Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
+Welcome to the first installment of "Making This Site". In these articles I will describe the **exact** steps I went through to build this website.
 
-To view this post the way it looked by the end of making all the changes described in this article [click here]()
+It is my intention to demonstrate how I setup, configure, styled and deployed this website. At the end of every article I will provide a commit link which shows all the code that was added through the course of the article.
 
 ### Web Design Goals
 
@@ -15,13 +15,15 @@ The purpose of this website is to store information and the output of various DI
 * Easy to maintain and add content to
 * Cheap to host
 
-With this in mind I set out to find a suitable static site generator (SSG) to build my site on. After reading about the pros and cons of many different static site generator I decided on [Pelican](http://docs.getpelican.com/en/3.6.3/index.html).
+With this in mind I set out to find a suitable static site generator (SSG) to build my site on. After reading about the pros and cons of many different static site generator I decided on [Pelican](http://docs.getpelican.com/en/3.7.1/index.html).
 
 My decision to use Pelican was primarily based on my pre-existing knowledge of Python and the fact that Pelican had almost all the features I thought I would need and not much more.
 
 ### Setting Up Pelican
 
-Setting up Pelican is quite simple. I followed the [quickstart guide](http://docs.getpelican.com/en/3.6.3/quickstart.html) to get get set up. The guide is quite thorough so I will not reiterate it.
+*For reference I am using Pelican 3.7.1 and Python 2.7.11 on Mac OS 10.12.2*
+
+Setting up Pelican is quite simple. I followed the [quickstart guide](http://docs.getpelican.com/en/3.7.1/quickstart.html) to get get set up. The guide is quite thorough so I will not reiterate it.
 
 Running ```pelican-quickstart``` generates a skeleton site with a default theme. It gets you set up to write a blog right away. Indeed, by the end of this article I will have a site that could, theoretically, go online.
 
@@ -97,4 +99,10 @@ posts. Typically I will provide a very general tag and then a few more
 specific ones. I try not to go wild with the tags, I know some sites
 do.
 
-At this point, with very little effort, I have a working blog with one article on it. To view the site in this state checkout COMMIT HASH LINK on GitHub.
+### Wrapping Up
+
+At this point, with very little effort, I have a working blog with one article on it. Now I want to make it look good. Next, I will develop a custom Pelican theme.
+
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/00).
+
+[Commit]() on GitHub.

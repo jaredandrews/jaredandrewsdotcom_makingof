@@ -125,9 +125,11 @@ This made the code distinct enough from the body text.
 
 Now we have an Archive page that can be accessed from the nav menu. I have also added a new mechanism for handling content hosting externally that I would like to highlight.
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/05).
 
-To see what the site looked after these changes were made [click here]().
+[Commit]() and [diff]() on GitHub.
+ 
+ 
 
 
 

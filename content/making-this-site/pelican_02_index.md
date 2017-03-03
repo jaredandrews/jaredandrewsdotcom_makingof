@@ -153,4 +153,7 @@ template appears to get used to create category pages. Clicking on a
 tag will lead to an empty page. We will have to tackle that in the
 future!
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/02).
+
+[Commit]() and [diff]() on GitHub.
+ 

@@ -1,5 +1,5 @@
-Title: Making This Site, Part 9: Deployment
-Date: 2017-02-28 22:45
+Title: Making This Site, Part 9: Deployment 
+Date: 2017-02-28 22:45 
 Tags: programming, web-dev, pelican, make, rss, scp
 
 The site is now complete. I am going to enable RSS and deploy it to my web host with a single command.
@@ -118,6 +118,6 @@ You may have noticed that the code snippet for `publishconf.py` above and the co
 
 At this point the site is live. I need to go back and do spell checking and probably clean up a few design related issue. I also need to go thru each post and include GitHub links.
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub. 
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/09) 
 
-To see what the site looked after these changes were made [click here](). 
+[Commit]() and [diff]() on GitHub.

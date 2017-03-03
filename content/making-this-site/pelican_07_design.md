@@ -121,6 +121,6 @@ I found this made the metadata a little less obtrusive.
 
 Unless my feelings change this is probably the final state of design for this site. What remains is an About page, figuring out to set up RSS and then **DEPLOYMENT**!
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub. 
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/07) 
 
-To see what the site looked after these changes were made [click here](). 
+[Commit]() and [diff]() on GitHub. 

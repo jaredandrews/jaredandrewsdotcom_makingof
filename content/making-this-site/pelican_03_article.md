@@ -152,4 +152,9 @@ Next I replaced instances of my mistaken check, `{% if article.category %}` with
 
 We now have our own Article template!
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+
+
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/03).
+
+[Commit]() and [diff]() on GitHub.
+  

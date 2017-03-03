@@ -139,6 +139,6 @@ I wanted to include the "current location" shown on `index.html` as well but it 
 
 The site is done! Well close... I still need to figure out how to turn on RSS and deploy this bad boy! Then I need to actually write more content :D We are getting close!
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub. 
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/08) 
 
-To see what the site looked after these changes were made [click here](). 
+[Commit]() and [diff]() on GitHub.

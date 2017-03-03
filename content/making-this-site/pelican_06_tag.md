@@ -53,6 +53,7 @@ For `tags.html` I just want to list all the tags on the site along with a number
 
 We have added `tag.html` and `tags.html` templates to the site. The only remaining template that I am interested in handling is `page.html` which will be addressed in the next post.
 
-To see the complete code for the site at this point checkout COMMIT HASH LINK on GitHub.
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/06). 
 
-To see what the site looked after these changes were made [click here]().
+[Commit]() and [diff]() on GitHub.
+ 
