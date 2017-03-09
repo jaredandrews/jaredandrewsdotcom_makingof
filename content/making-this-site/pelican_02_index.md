@@ -2,11 +2,10 @@ Title: Making This Site, Part 2: Index Template
 Date: 2017-02-04 19:00
 Tags: programming, web-dev, pelican
 
-Welcome to the second installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
+Now that the base template has been created I want to design the front
+page of the site.
 
-To view this post the way it looked by the end of making all the changes described in this article [click here]()
-
-### Designing the Home Page
+### Designing the Home Template
 
 In keeping with the overall "minimalist" vibe I only want my
 home page to be a list of posts. Right now,
@@ -17,18 +16,17 @@ I want something more like:
 
     > Name of Post (Feb 4, 2017 / making-this-site / programming, web-dev, pelican)
 
-### Laying Out the index.html Template
+### Laying Out the Index Template
 
-First we need to add the template into our theme:
+The front page lives in `index.html`:
 
     $ touch theme/templates/index.html
 
-We will start by inheriting from `base.html`. This will include the
-`header` and `container` we created in the last post.
+First I inherit the base template:
 
     {% extends "base.html" %}
 
-Next lets make an unordered list to hold our posts:
+Then I make an unordered list to show the articles:
 
     {% block content %}
     <ul>
@@ -53,24 +51,17 @@ Next lets make an unordered list to hold our posts:
     {% endfor %}
     {% endblock content %}
 
-
-The first thing to notice is the for loop in line 3 itereating over
-`articles_page.object_list` this variable provides us with a list of
-articles that we can then get information from.
-
-Once we have an article we add `<li>` for it to live and print
-out the relevant meta data.
-
-Notice how when adding both the category and tags lists we check first
-with an if statement for their existance. This is so we do not get
-something like "/ / )" if no categories or tags exist.
+The most important part of this is the `for loop` on
+line 3. `articles_page.object_list` holds a list of
+articles to be displayed. I use this to add info for each article to
+an `<li>` element.
 
 ### Some CSS Refinement
 
 The freshly added template looks almost exactly how I want it. But
 there are two issues from my perspective:
 
-When you are in the mobile view the meta-data for each post looks
+When I am in the mobile view the metadata for each post looks
 awkward:
 
 ![Alphabet Soup of Metadata on Mobile](/images/crushed_up_metadata.png)
@@ -80,12 +71,10 @@ list:
 
 ![Tight Spacing Between Title and First Article](/images/tight_title.png)
 
-#### Making Metadata on Mobile Look Good
-If you look back up to the code that we added into the template you
-will notice that all that all the metadata for a post is contained in
-a span with the class of `post-meta`.
+#### Making Metadata Great Again (on Mobile)
+I put each artiles metadata in a span with the class `post-meta`.
 
-Let's define `post-meta` in the "default && mobile" section of
+So I can define `post-meta` in the "default && mobile" section of
 `jaredandrews.css` like so:
 
 	.post-meta {
@@ -99,7 +88,7 @@ it can't fit into the parent container:
 
 This is better but I don't like how the metadata falls underneath the
 bullet point. Instead I would like it to align with the post title. To
-achieve this we an the following to the "default && mobile" section of `jaredandrews.css`
+achieve this I add the following to the "default && mobile" section of `jaredandrews.css`:
 
 	li {
 		list-style-position: outside;
@@ -108,7 +97,7 @@ achieve this we an the following to the "default && mobile" section of `jaredand
 
 ![Metadata aligned with the post title on mobile](/images/aligned_metadata_mobile.png)
 
-Now that's what I'm talking about!
+Sick!
 
 #### Creating Space Between the Title and the List
 
@@ -128,7 +117,7 @@ noticed how bad the images were looking while proofreading and
 wanted to do something about it.
 
 First the images don't respond to the width of the screen at all
-meaning they bleed of the page. Second, the images have no border,
+meaning they bleed off the page. Second, the images have no border,
 which can cause confusion, especially when displaying screenshots of
 text from this site.
 
@@ -145,13 +134,7 @@ a nice border with a shadow.
 
 ### Wrapping Up
 
-We now have a home page for the site and it looks pretty much exactly
-how I want it to on both mobile and desktop.
-
-If you click a category you will notice that the same `index.html`
-template appears to get used to create category pages. Clicking on a
-tag will lead to an empty page. We will have to tackle that in the
-future!
+I now have a home page that looks exactly how I want it.
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/02).
 

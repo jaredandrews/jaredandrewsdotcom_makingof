@@ -2,20 +2,23 @@ Title: Making This Site, Part 0: Setup
 Date: 2015-11-01 10:02 
 Tags: programming, web-dev, pelican
 
-Welcome to the first installment of "Making This Site". In these articles I will describe the **exact** steps I went through to build this website.
-
-It is my intention to demonstrate how I setup, configure, styled and deployed this website. At the end of every article I will provide a commit link which shows all the code that was added through the course of the article.
+Welcome to the first installment of "Making This Site". In these
+articles, I will describe the **exact** steps I went through to build
+this website. At the end of every article is a link to a commit on
+GitHub showing all the code that was added.
 
 ### Web Design Goals
 
-The purpose of this website is to projects I work on that have nowhere else to go. As such, the requirements are simple:
+The purpose of this website is hosting various projects I work on. The
+requirements are simple. I would like:
 
-* Blog presentation
+
+* A blog presentation
 * Lightweight and easy to view on computers and phones
 * Easy to maintain and add content to
 * Cheap to host
 
-With this in mind I set out to find a suitable static site generator (SSG). After reading about the pros and cons of many different static site generators I decided on [Pelican](http://docs.getpelican.com/en/3.7.1/index.html).
+With these requirements in mind, I set out to find a suitable static site generator (SSG). After reading about the pros and cons of many different static site generators I decided on [Pelican](http://docs.getpelican.com/en/3.7.1/index.html).
 
 My decision to use Pelican was primarily based on my pre-existing knowledge of Python and the fact that Pelican had almost all the features I thought I would need and not much more.
 
@@ -23,9 +26,9 @@ My decision to use Pelican was primarily based on my pre-existing knowledge of P
 
 *For reference I am using Pelican 3.7.1 and Python 2.7.11 on Mac OS 10.12.2*
 
-Setting up Pelican is quite simple. I followed the [quickstart- guide](http://docs.getpelican.com/en/3.7.1/quickstart.html) to get get set up. The guide is quite thorough so I will not reiterate it.
+Setting up Pelican is quite simple, I followed the [quickstart- guide](http://docs.getpelican.com/en/3.7.1/quickstart.html) to get get going.
 
-Running ```pelican-quickstart``` generates a skeleton site with a default theme. It gets you set up to write a blog right away. Indeed, by the end of this article I will have a site that could, theoretically, go online.
+Running `pelican-quickstart` generates a skeleton site with a default theme. By the end of this article I will have a site that could, theoretically, go online.
 
 Here are the options I used to generate my initial site:
 
@@ -59,47 +62,49 @@ Here are the options I used to generate my initial site:
     > Do you want to upload your website using GitHub Pages? (y/N) N
     Done.
 
-You can see the skeleton site by running `./develop_server start` in the route directory. Once you do this, open your browser and go to `localhost:8000`. Here you will see the freshly generated site.
-
-Throughout this series I will use `develop_server` to preview the site as I work on it. If you are developing a Pelican site I would recommend it over `make html; make serve`. `develop_server` automatically refreshes the site as you make changes. Make sure you stop `develop_server` with `./develop_server stop` when you are done.
+To see the skeleton site I run `./develop_server
+start`. `develop_server` reloads the site as files are changed
+providing a tight feedback loop when making updates.
 
 ### Writing My First Article
 
-After seeing the skeleton site I decided to write the article you are reading right now. Pelican provides the option to write articles in Markdown and a number of other languages. I decided to use Markdown, which is the default. In the root directory for your site you will find a ```content``` directory. This directory is where you store your articles.
+After seeing the skeleton site I decided to write the article you are
+reading right now. Pelican provides the option to write articles in
+Markdown and a number of other languages. I decided to use Markdown,
+thhe default option. In the root directory for your site you will find
+a `content` directory. This directory is where you store your
+articles.
+
 
 To make this article I used the following command:
 
     $ touch content/pelican_00_setup.md
 
-Once the file was created I opened it and wrote this article. An article file needs to provide metadata for Pelican. Here is what the metadata for this article looks like:
+#### Article Metadata
+
+Once the file was created I opened it and wrote this article. An
+article file needs metadata. The metadata for this article looks like:
 
     Title: Making This Site, Part 0: Setup 
     Date: 2015-11-01 10:02
 
-For this article I used a number of Markdown features within the
-text. ```*``` creates a bullet point. ```#``` indicates that the line
-is a header. I also prefaced lines of code with at least four spaces
-so they would be shown in a code block.
+##### Tags and Categories
 
-#### Tags and Categories
-
-Each post can also have a single category and a list of associated
-tags. Underneath the title and date information in the Markdown for
-this post I have also included:
+Each post can also have a single category and a list of associated tags. Underneath the title and date information in the Markdown for this post I have also included:
 
     Tags: programming, web-dev, pelican
     Category: making-this-site
 
-Each post can have a single category. I imagine that typically I will
-only use categories when I want to group specific posts together, for
-example, I would want a visitor of this site to be able to to view all
-of the "Making This Site" posts in one place, thus I have created the
-`making-this-site` category.
+Each post can have a single category. I imagine that typically I will only use categories when I want to group specific posts together, for example, I would want a visitor of this site to be able to to view all of the "Making This Site" posts in one place, thus I have created the `making-this-site` category.
 
-Tags are additional meta-data that can be used to find related
-posts. Typically I will provide a very general tag and then a few more
-specific ones. I try not to go wild with the tags, I know some sites
-do.
+Tags are additional metadata that can be used to find related posts. Typically I will provide a very general tag and then a couple more specific ones.
+
+##### Content
+
+After the metadata you start writing the content of the article. You
+can view the complete markdown file for this article [here](TODO).
+
+For this article I used a number of Markdown features within the text. `*` creates a bullet point. `#` indicates that the line is a header. I also prefaced lines of code with at least four spaces so they would be shown in a code block.
 
 ### Wrapping Up
 

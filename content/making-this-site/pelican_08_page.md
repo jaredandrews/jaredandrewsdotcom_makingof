@@ -2,11 +2,19 @@ Title: Making This Site, Part 8: Page Template
 Date: 2017-02-28 18:15 
 Tags: programming, web-dev, pelican, jinja2, css, markdown
 
-There are two types of content in Pelican, [articles and pages](http://docs.getpelican.com/en/stable/content.html#articles-and-pages). So far we have only worked with articles. But now that we are nearing the end of creating this site I need to add an "About" page with a bio, contact information and maybe a few other things. In the future I may use pages to host content that will be updated over time but is better preseneted as a single package. For example I intend to add a travel map and log at some point. This would be more suited as a single page that get's updated frequently than a million very brief blog posts.
+There are two types of content in Pelican,
+[articles and pages](http://docs.getpelican.com/en/stable/content.html#articles-and-pages). So
+far I have only worked with articles. But now that I need to add an
+"About" page with a bio, contact information and maybe a few other
+things. In the future I may use pages to host content that will be
+updated over time but is better preseneted as a single package. For
+example I intend to add a travel map and log at some point. This would
+be more suited as a single page that get's updated frequently than a
+million tiny blog posts.
 
 ### Setting Up
 
-We need to create both a template for pages and a place for them to go in the `content` directory. Lets add the new template, a new content directory and a new page:
+I need to create both a template for pages and a place for them to go in the `content` directory:
 
     $ touch theme/templates/page.html
     $ mkdir content/pages/
@@ -14,7 +22,8 @@ We need to create both a template for pages and a place for them to go in the `c
 
 ### Creating the About Page Markdown
 
-Lets start with `about.md`. This is the post that describes the content and metadata for my about page. Working with it is basically the same as an article.
+Before creating the template I added some metadata to
+`about.md`. Working with it is basically the same as an article.
 
     Title: About
     Date: 2017-02-28 18:15
@@ -22,11 +31,13 @@ Lets start with `about.md`. This is the post that describes the content and meta
 
     CONTENT TODO
 
-Notice there is less metadata than an article. I added a `Modified` key which I will update whenever I change this page.
+Notice there is less metadata than an article. I added a `Modified`
+key which I will update whenever I change a page.
 
 ### Creating the Page Template
 
-Next lets edit `page.html`. This is the template that content in `content/pages/` willl be applied to. It is like a simpler article:
+Next lets edit `page.html`. This is the template that content in
+`content/pages/` willl be applied to. It is like a simpler article:
 
     {% from 'macros.html' import get_page_meta_data_html %}
     {% extends "base.html" %}
@@ -41,9 +52,17 @@ Next lets edit `page.html`. This is the template that content in `content/pages/
       <div>{{ page.content }}</div>
     {% endblock %}
 
-Notice that the CSS classnames are still prepended with "article-". These names not don't make sense, because they are used with pages as well. I doubt I will ever confuse myself with this inconsistency but since I will be using the exact same styles for both type of content I think it's fair to remove the prefix, thus `.article-title` and `.article-metadata` are now `.title` and `.metadata` respectively.
+Notice that the CSS classnames are still prepended with
+"article-". These names not don't make sense, because they are used
+with pages as well. I doubt I will ever confuse myself with this
+inconsistency but since I will be using the exact same styles for both
+type of content I think it's fair to remove the prefix, thus
+`.article-title` and `.article-metadata` are now `.title` and
+`.metadata` respectively.
 
-Every thing is pretty similar to `article.html` minus the navigation. I also changed how the metadta was displayed with a new method in `macros.html`:
+Every thing is pretty similar to `article.html` minus the
+navigation. I also changed how the metadta was displayed with a new
+method in `macros.html`:
 
     {% macro get_page_meta_data_html(page) %}
       Last Modified: 
@@ -58,13 +77,19 @@ This shows the "last modification" date for a page and that's it.
 
 ### Updating the Nav Bar
 
-A page in `content/pages` is generated with a slug that looks like `pages/page.html`. Thus my new about page will look like `pages/about.html`. I have a link to the About page both in the Nav Bar and on the front page.
+A page in `content/pages` is generated with a slug that looks like
+`pages/page.html`. Thus my new about page will look like
+`pages/about.html`. I have a link to the About page both in the Nav
+Bar and on the front page.
 
 To update the Nav Bar I update `base.html`:
 
     <nav><a href="{{ SITEURL }}/pages/about.html">about</a> / <a href="{{ SITEURL }}/archives.html">archive</a> / <a href="#">rss</a></nav>
 
-In the last post I added a greetings box to `index.html`. I put a link to the about page in it and at the time thought the link would be `{{ SITEURL }}/about.html`. Turns out my assumption was wrong so I updated that `index.html` to reflect the new link.
+In the last post I added a greetings box to `index.html`. I put a link
+to the about page in it and at the time thought the link would be `{{
+SITEURL }}/about.html`. Turns out my assumption was wrong so I updated
+that `index.html` to reflect the correct link.
 
 ### Adding Content to the About Page
 
@@ -110,10 +135,14 @@ Next I added content to `about.md`:
 	*Any code on this site can be considered [MIT licensed](https://opensource.org/licenses/MIT)*.  
 	*Any views expressed on this site are those of the author and do not reflect views held by past or present employers.*
 
-That is a lot of text! Mostly using Markdown that we have already seen. New Markdown that hasn't been used before is `  ` (two spaces at the end of a line) which causes the next line to be on a new line, it basically maps to `<br/>`.
+That is a lot of text! Mostly using Markdown that we have already
+seen. New Markdown that hasn't been used before is `  ` (two spaces at
+the end of a line) which causes the next line to be on a new line, it
+basically maps to `<br/>`.
 
-The other thing of note is the class I assign the portrait: `{ class='portrait large' }`. This applies the CSS classes `portrait` and `large`. `jaredandrews.css` has been updated with a large class:
-
+The other thing of note is the class I assign the portrait: `{
+class='portrait large' }`. This applies the CSS classes `portrait` and
+`large`. `jaredandrews.css` has been updated with a large class:
 
     .large {
         display: block;
@@ -131,14 +160,21 @@ The other thing of note is the class I assign the portrait: `{ class='portrait l
         ...
 	}
 
-These classes make the text wrap the portrait on "larger than tablet" screen sizes and go under the portrait for mobile screen sizes.
+These classes make the text wrap the portrait on "larger than tablet"
+screen sizes and go under the portrait for mobile screen sizes.
 
-I wanted to include the "current location" shown on `index.html` as well but it turns out that Pelican variables are not available for pages or articles. For now I will only show it on `index.html` tho I would like to display it on the About page in the future. To do this I would need to make a specific page template for the about page. 
+I wanted to include the "current location" shown on `index.html` as
+well but it turns out that Pelican variables are not available for
+pages or articles. For now I will only show it on `index.html` tho I
+would like to display it on the About page in the future. To do this I
+would need to make a specific page template for the about page.
 
 ### Wrapping Up
 
-The site is done! Well close... I still need to figure out how to turn on RSS and deploy this bad boy! Then I need to actually write more content :D We are getting close!
+The site is done! Well close... I still need to figure out how to turn
+on RSS and deploy this bad boy! Then I need to actually write more
+content :D
 
-To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/08) 
+To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/08).
 
 [Commit]() and [diff]() on GitHub.

@@ -2,16 +2,15 @@ Title: Making This Site, Part 1: Base Template
 Date: 2015-11-03 19:00
 Tags: programming, web-dev, pelican, skeleton, jinja2
 
-Welcome to the first installment of "Making This Site". In these articles I will describe the exact steps I went through to build this site. 
-
-To view this post the way it looked by the end of making all the changes described in this article [click here]()
+Now that I have a basic blog running with Pelican, I want to start
+customizing it.
 
 ### Cleaning the Config
 
-Each Pelican project has ```pelicanconf.py``` file that described site
-wide metadata. The ```pelican-quickstart``` tool used in the previous
-entry to create the skeleton for this site generates a conf file with
-sensible defaults:
+Each Pelican project has a `pelicanconf.py` file that configures the
+site for Pelican. The `pelican-quickstart` tool used in the previous
+entry to create the skeleton for this site generates a configuration
+file with sensible defaults:
 
     # -*- coding: utf-8 -*- #
     from __future__ import unicode_literals
@@ -49,74 +48,73 @@ sensible defaults:
     #RELATIVE_URLS = True
 
 Many of the keys directly map to the questions posed by
-```pelican-quickstart```. The keys ```LINKS``` and ```SOCIAL``` are
-not needed for my purposes so I have removed them. Once they are
-removed you will notice that the sections containing them disapear
-from the generated site. I also updated my `SITEURL` to point to
-localhost. We will need to make this adjustable at some point when we
-make this site deployable.
+`pelican-quickstart`. The keys `LINKS` and `SOCIAL` are not needed for
+my purposes so I have removed them. I also updated my `SITEURL` to
+point to `localhost`. I will need to make this adjustable at some point
+so I can deploy my site to a real domain in the future.
 
 ### Getting Started on a Custom Theme
 
-To create a custom theme for Pelican you must create a directory for
-your theme that has three directories, `static`,
-`templates` and `css`. From the root of your Pelican project:
+A Pelican theme requires a certain structure which can be constructed with:
 
+    $ mkdir theme
 	$ mkdir -p theme/templates
 	$ mkdir -p theme/static/css
 
-Once you have created these directories open your `pelicanconf`
-and add the following line:
+After that `pelicanconf.py` is updated to point to this new theme:
 
     THEME='theme'
 
-If you generate the site again at this point, y ou will notice it is
-themeless and composed entired of text and basic HTML with no
-style. From here we will develop our own theme.
+Now when the site is regenerated, it is a themeless pile of text with
+"classic" HTML styling.
 
 ### The Structure of a Theme
 
-Themes in Pelican are created with templates using [language syntax]
-that live in teh `theme/templates` directory. The structure of the
-`templates` directory can be found in the
+Themes in Pelican are created with
+[Jinja-2 templates](http://jinja.pocoo.org/docs/2.9/) that live in the
+`theme/templates` directory. The structure of the `templates`
+directory can be found in the
 [Pelican Docs](http://docs.getpelican.com/en/3.6.3/themes.html).
 
-We will start with `base.html` which provides the scaffolding for
-all other templates in a theme.
+
+I start on building `base.html` which provides the scaffolding for all
+other templates in a theme.
+
 
     $ touch theme/templates/base.html
 
-### Designing Base.html
+### Designing the Base Template
 
 As noted in [Part 0](/making-this-site-part-0-setup.html) of this
-series I want the layout of my site to be extremely simple.
+series I want the layout of my site to be extremely simple. Not quite
+as quite as simple as
+[this perfect motherfucking website](http://motherfuckingwebsite.com/),
+but close! 
 
 For the header of the site, which will be the primary component
-provided by `base.html` I was only interested in displaying my name
-and navigation.
+provided by `base.html` I am only interested in displaying my name and
+navigation.
 
-The basic design I came up with looks like this:
+The design I came up with looks like this:
 
 ![Sketch of Header Design](/images/rough_design.jpg)
 
 #### A Quick Aside on Adding Images to Posts
 
-As I use more Markdown tags in these posts I will try to remember
-to point them out. You can add an image to a markdown file with:
+As I use more Markdown tags in these posts I will try to remember to
+point them out. An image can be added to a markdown file with:
 
 	![Alt Text](/path/to/image)
 
-To get pelican to include your images in it's output create a
-directory in `content` called `images` and add the following line to
-your `pelicanconf.py`:
+Pelican must be made aware of the location of images. So I
+added the following to `pelicanconf.py`:
 
     STATIC_PATHS = ['images']
 
-#### Defining base.html
+#### Defining the Base Template
 
-Since `base.html` will be extended by all other templates I need
-to include the `html`, `head` and `body` tags. Let's start
-by looking at the `head` tag and its contents:
+Since `base.html` will be extended by all other templates I need to
+include the `html`, `head` and `body` tags. Here is the `head` tag:
 
     <!DOCTYPE html>
 	<html lang="{{ DEFAULT_LANG }}">
@@ -139,9 +137,10 @@ by looking at the `head` tag and its contents:
 		</body>
 	</html> 
 
-The first thing you might notice about this code are blocks like `{{
-SITENAME }}` and `{% endblock %}`. Pelican uses the
-[Jinja2 Templating Engine](http://jinja.pocoo.org/) for templating.
+Despite the file extension, I am now working in Jinja-2 *and* html.
+Blocks like `{{SITENAME }}` and `{% endblock %}` are processed by the 
+[Jinja2 Templating Engine](http://jinja.pocoo.org/) when the site is
+generated.
 
 Jinja2 provides a
 [DSL for defining templates](http://jinja.pocoo.org/docs/2.9/templates/)
@@ -154,10 +153,11 @@ Some important parts from above:
 	<title>{% block title %}{{ SITENAME }}{% endblock %}</title>
 
 `{{ SITENAME }}` prints the `SITENAME` defined in `pelicanconf.py`. By
-surround `{{ SITENAME }}` with `{% block title %} ... {% endblock %}`
-I am allowing child templates to override the content of `{% block
-title %}`. This will become important when defining the child pages
-where I don't want the `<title>` to just be the name of this site.
+surrounding `{{ SITENAME }}` with `{% block title %} ... {% endblock %}`
+I am allowing templates that inherit from `base.html` to override the content of `{% block
+title %}`. This will become important when building the other
+templates that extend `base.html` and want to change the title shown
+in a browser's title bar.
 
 	        <link rel="stylesheet" href="{{ SITEURL }}/theme/css/normalize.css" type="text/css">
 			<link rel="stylesheet" href="{{ SITEURL }}/theme/css/skeleton.css" type="text/css">
@@ -166,18 +166,15 @@ where I don't want the `<title>` to just be the name of this site.
 The above code imports a few css files from my `theme/assets/css`
 directory.
 
-I am using [Skeleton](http://getskeleton.com/) as the only css
+I am using [Skeleton](http://getskeleton.com/) as the only CSS
 "framework" for this project. Skeleton provides a nice set of
 responsive styles for desktop and mobile. Skeleton asks that you
-import `normalize.css` as well. If you are not familiar with this file
-it basically sets the defautl values for all css elements so you are
-working with a consistent base across browsers.
+import `normalize.css` as well.
 
-Then there is `jaredandrews.css`, this is the file I will put any
-additional css I code I need in. We will look at this file again
-later.
+Then there is `jaredandrews.css`, this file will contain any
+additional CSS the site needs.
 
-Now lets add the content of `<body>` which looks like this:
+Next is the `<body>`:
 
 	<div class="container">
 
@@ -192,7 +189,7 @@ Now lets add the content of `<body>` which looks like this:
 
 	</div>
 
-The first `<div>` has the class of `container`. This is the root
+The first `<div>` has `container` as its class. This is the root
 element for a Skeleton layout. Skeleton will center this div on the
 page.
 
@@ -204,7 +201,7 @@ between mobile and desktop.
 
 #### Using CSS to Adjust the Header
 
-Let's start with a basic template for `jaredandrews.css`:
+To get started with `jaredandrews.css` I add:
 
 	/* Default and mobile */
 
@@ -225,10 +222,10 @@ Let's start with a basic template for `jaredandrews.css`:
 
 Skeleton recommends using this set of media queries in your cusotm
 css. Anything defined outside of a media query will both be the
-default css for an element and what you see on mobile. Media queries
+default CSS for an element and what you see on mobile. Media queries
 are then provided for larger screens.
 
-Let's start with default/mobile:
+For the default/mobile style I want:
 
 	.header nav {
 		display: block;
@@ -243,9 +240,8 @@ Let's start with default/mobile:
 These selectors center both elements and put the title above the
 navigation.
 
-After I define behavior for "larger than tablet" queries. The decision
-to break here was based on my own testing with different screen
-sizes. I left that the desktop layout looked best starting at this point.
+Next I want to handle "larger than tablet" devices. I want the title
+to be shown on the left side of the screen and the navigation on the right.
 
 	/* Larger than tablet */
 	@media (min-width: 750px) {
@@ -259,15 +255,16 @@ sizes. I left that the desktop layout looked best starting at this point.
 		}
 	}
 
-Now the layout of the header will react to the type of device it is
-being views on.
+Now the layout of the header reacts to the type of device it is
+being viewed on.
 
 ### Wrapping Up
 
-At this point we have a pretty nice looking site. Of course we will be
-tweaking everything else, but just by providing the `base.html`
-template we are able to make a lot of big changes to the way the site looks.
+At this point I have a nice looking site. I plan on tweaking
+everything else, but just by providing the `base.html`
+template I can see huge changes to the way the site looks.
 
-To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/01).
+To view this site the way it looked once all the changes described in
+this article were made, [click here](/making-this-site-rendered/01).
 
 [Commit]() and [diff]() on GitHub.
