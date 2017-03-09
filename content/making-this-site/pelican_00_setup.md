@@ -112,4 +112,4 @@ At this point, with very little effort, I have a working blog with one article o
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/00).
 
-[Commit]() on GitHub.
+[Changes](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/tree/d53538832006e1b9fe3f9e49b688f8039ee8d12f) on GitHub.

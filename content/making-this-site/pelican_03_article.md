@@ -181,5 +181,4 @@ I now have an Article template!
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/03).
 
-[Commit]() and [diff]() on GitHub.
-  
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/803258245befd65230cf3924af7409356bf26f07) on GitHub.

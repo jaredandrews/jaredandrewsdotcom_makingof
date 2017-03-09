@@ -177,4 +177,4 @@ content :D
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/08).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/75a78f1c7d1068e9b73facb4d4b7fb87480afc32) on GitHub.

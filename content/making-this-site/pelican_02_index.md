@@ -138,5 +138,5 @@ I now have a home page that looks exactly how I want it.
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/02).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/74f249514fdba6b511a06e627927e93c5557a34f) on GitHub.
  

@@ -166,7 +166,7 @@ NowI  have an Archive page that can be accessed from the nav menu.
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/05).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/d3f6803222e1d76ac31f1a74e75e537f9e027833) on GitHub.
 
  
 

@@ -267,4 +267,4 @@ template I can see huge changes to the way the site looks.
 To view this site the way it looked once all the changes described in
 this article were made, [click here](/making-this-site-rendered/01).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/b565af7142d2661ce4a003ed288bb25c54d56ee7) on GitHub.

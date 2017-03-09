@@ -63,5 +63,5 @@ I have added `tag.html` and `tags.html` templates to the site. The only remainin
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/06).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/f52f33699f58b0d80e2ee1e04e4575f3215588aa) on GitHub.
  

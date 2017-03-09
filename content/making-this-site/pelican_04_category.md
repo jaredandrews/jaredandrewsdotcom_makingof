@@ -179,5 +179,5 @@ I now have a category template!
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/04).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/575951007462514058cbcb171f2286ebcbbc147a) on GitHub.
   

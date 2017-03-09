@@ -183,4 +183,4 @@ to go thru each post and include GitHub links.
 
 To view this site the way it looked once all the changes described in this article were made, [click here](/making-this-site-rendered/09).
 
-[Commit]() and [diff]() on GitHub.
+[Commit](https://github.com/jaredandrews/jaredandrewsdotcom_makingof/commit/8a75c211e634dfab6c7568a5411a69e27c59b133) on GitHub.
