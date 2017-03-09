@@ -1,5 +1,7 @@
 This repo contains the source of [my website](http://jaredandrews.com).
 
+The site was built with [Pelican](https://github.com/getpelican/pelican). This repo contains the initial setup and customizing of a Pelican site.
+
 Each commit is associated with an article on the site itself.
 
 Article | Commit | Rendered 
